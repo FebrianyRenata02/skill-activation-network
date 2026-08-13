@@ -54,7 +54,7 @@ const FASILITAS_DATA: Fasilitas[] = [
     name: 'LEARNING FACILITIES',
     subtitle: 'FACILITIES PROVIDED',
     description: "Wadah bagi siswa untuk merintis startup, mendapatkan mentorship langsung, serta akses ke ekosistem industri digital.",
-    image: 'https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/san-academy2%20copy.png',
+    image: 'https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/san-academy2.png',
   },
   {
     id: 'library',
@@ -67,7 +67,7 @@ const FASILITAS_DATA: Fasilitas[] = [
 
 const FEATURED_FASILITAS: FeaturedFasilitas[] = [
   { name: 'COMMUNITY', image: 'https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/Untitled%20(33).png' },
-  { name: 'LEARNING', image: 'https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/san-academy2%20copy.png' },
+  { name: 'LEARNING', image: 'https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/san-academy2.png' },
   { name: 'WORKING SPACE', image: 'https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/Co-Working%20Space2.png' },
   { name: 'COMPANY', image: 'https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/SAN.png' },
 ];
