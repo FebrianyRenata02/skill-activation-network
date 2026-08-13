@@ -54,7 +54,7 @@ const FASILITAS_DATA: Fasilitas[] = [
     name: 'LEARNING FACILITIES',
     subtitle: 'FACILITIES PROVIDED',
     description: "Wadah bagi siswa untuk merintis startup, mendapatkan mentorship langsung, serta akses ke ekosistem industri digital.",
-    image: 'https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/san-academy2.png',
+    image: 'https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/san-academy2%20copy.png',
   },
   {
     id: 'library',
