@@ -256,6 +256,21 @@ export const App: React.FC = () => {
       {/* Background Global */}
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-950/40 via-[#0a071d] to-[#04020a] pointer-events-none z-0" />
 
+      {/* Floating WhatsApp Button */}
+      <a
+        href="https://wa.me/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-50 hover:scale-110 transition-transform duration-300 drop-shadow-[0_0_15px_rgba(34,197,94,0.5)]"
+        aria-label="Contact via WhatsApp"
+      >
+        <img
+          src="https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/whatsapp-icon.png"
+          alt="WhatsApp Icon"
+          className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
+        />
+      </a>
+
       {/* Header Sticky Navbar */}
       <header className="sticky top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#0b0818]/90 border-b border-purple-900/40 w-full shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
