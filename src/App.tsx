@@ -6,11 +6,13 @@ interface Fasilitas {
   subtitle: string;
   description: string;
   image: string;
+  externalLink?: string; // Menambahkan properti opsional untuk tautan eksternal
 }
 
 interface FeaturedFasilitas {
   name: string;
   image: string;
+  externalLink?: string;
 }
 
 interface Course {
@@ -45,6 +47,7 @@ const FASILITAS_DATA: Fasilitas[] = [
       "Fasilitas pembelajaran modern berstandar industri, proyek interaktif, dan materi kurikulum yang selalu diperbarui.",
     image:
       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop",
+    externalLink: "https://san-global-digital.vercel.app/",
   },
   {
     id: "working-space",
@@ -63,6 +66,7 @@ const FASILITAS_DATA: Fasilitas[] = [
       "Wadah bagi siswa untuk merintis startup, mendapatkan mentorship langsung, serta akses ke ekosistem industri digital.",
     image:
       "https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/san-academy2.png",
+    externalLink: "https://san-academy-fkyn.vercel.app/", // Hyperlink otomatis ke san-academy
   },
   {
     id: "library",
@@ -85,6 +89,7 @@ const FEATURED_FASILITAS: FeaturedFasilitas[] = [
     name: "LEARNING FACILITIES",
     image:
       "https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/san-academy2.png",
+    externalLink: "https://san-academy-fkyn.vercel.app/", // Mengarahkan card learning facilities ke link ini
   },
   {
     name: "WORKING SPACE",
@@ -95,6 +100,7 @@ const FEATURED_FASILITAS: FeaturedFasilitas[] = [
     name: "COMPANY",
     image:
       "https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/SAN.png",
+    externalLink: "https://san-global-digital.vercel.app/",
   },
 ];
 
@@ -204,6 +210,13 @@ export const App: React.FC = () => {
       setSubscribed(true);
       setEmailInput("");
       setTimeout(() => setSubscribed(false), 4000);
+    }
+  };
+
+  // Helper universal untuk menangani redirect tautan eksternal fasilitas
+  const handleFasilitasRedirect = () => {
+    if (currentFasilitas.externalLink) {
+      window.location.href = currentFasilitas.externalLink;
     }
   };
 
@@ -438,7 +451,10 @@ export const App: React.FC = () => {
             </p>
 
             <div className="mt-4 sm:mt-6 flex items-center justify-start md:justify-center gap-4">
-              <button className="bg-slate-100 text-slate-950 hover:bg-cyan-400 transition-all duration-500 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-bold text-xs tracking-wider shadow-[0_0_25px_rgba(255,255,255,0.3)]">
+              <button
+                onClick={handleFasilitasRedirect}
+                className="bg-slate-100 text-slate-950 hover:bg-cyan-400 transition-all duration-500 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-bold text-xs tracking-wider shadow-[0_0_25px_rgba(255,255,255,0.3)]"
+              >
                 GET STARTED
               </button>
             </div>
@@ -456,7 +472,12 @@ export const App: React.FC = () => {
               {prevFasilitasName}
             </button>
 
-            <div className="relative w-48 h-48 sm:w-72 sm:h-72 md:w-[380px] md:h-[380px] lg:w-[420px] lg:h-[420px] flex items-center justify-center group select-none transition-all duration-700">
+            <div
+              onClick={handleFasilitasRedirect}
+              className={`relative w-48 h-48 sm:w-72 sm:h-72 md:w-[380px] md:h-[380px] lg:w-[420px] lg:h-[420px] flex items-center justify-center group select-none transition-all duration-700 ${
+                currentFasilitas.externalLink ? "cursor-pointer" : ""
+              }`}
+            >
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500 via-fuchsia-600 to-purple-600 opacity-75 blur-2xl group-hover:opacity-100 transition-opacity duration-1000 animate-cosmic-pulse" />
               <div className="absolute -inset-3 rounded-full p-[3px] bg-[conic-gradient(from_0deg,#06b6d4,#8b5cf6,#ec4899,#3b82f6,#06b6d4)] animate-galaxy-spin opacity-90 shadow-[0_0_35px_rgba(139,92,246,0.7)]" />
               <div className="absolute -inset-1.5 rounded-full border border-dashed border-cyan-300/50 animate-reverse-spin opacity-80" />
@@ -507,7 +528,10 @@ export const App: React.FC = () => {
           </div>
 
           <div className="z-10 text-center flex flex-col items-center gap-2 mt-2">
-            <button className="bg-slate-100 hover:bg-cyan-400 text-slate-950 px-6 py-2 rounded-full font-bold text-xs transition-colors duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+            <button
+              onClick={handleFasilitasRedirect}
+              className="bg-slate-100 hover:bg-cyan-400 text-slate-950 px-6 py-2 rounded-full font-bold text-xs transition-colors duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+            >
               EXPLORE DEEP SPACE
             </button>
 
@@ -529,10 +553,14 @@ export const App: React.FC = () => {
                 key={index}
                 className="bg-purple-950/20 border border-purple-800/30 rounded-2xl p-6 text-left md:text-center hover:border-cyan-500/50 transition-all duration-500 hover:-translate-y-1 group cursor-pointer backdrop-blur-sm"
                 onClick={() => {
-                  const foundIndex = FASILITAS_DATA.findIndex(
-                    (f) => f.name.toLowerCase() === item.name.toLowerCase(),
-                  );
-                  if (foundIndex !== -1) setActiveFasilitasIndex(foundIndex);
+                  if (item.externalLink) {
+                    window.location.href = item.externalLink;
+                  } else {
+                    const foundIndex = FASILITAS_DATA.findIndex(
+                      (f) => f.name.toLowerCase() === item.name.toLowerCase(),
+                    );
+                    if (foundIndex !== -1) setActiveFasilitasIndex(foundIndex);
+                  }
                 }}
               >
                 <div className="relative w-20 h-20 mb-4 md:mx-auto">
@@ -705,74 +733,71 @@ export const App: React.FC = () => {
         {/* Footer & Subscription Section */}
         <section
           id="blog"
-          className="py-16 md:py-20 px-4 sm:px-6 max-w-4xl mx-auto text-left md:text-center w-full border-t border-purple-900/30"
+          className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-900/30"
         >
-          <h2 className="text-2xl md:text-3xl font-serif mb-3 tracking-wider">
-            STAY INFORMED
-          </h2>
-          <p className="text-slate-400 text-xs md:text-sm mb-8">
-            Explore planet discovery news, weekly astronomical research updates,
-            and course announcements.
-          </p>
+          <div className="bg-gradient-to-r from-purple-950/40 via-purple-900/20 to-cyan-950/30 border border-purple-800/30 rounded-3xl p-8 sm:p-12 backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="text-left max-w-xl">
+              <h3 className="text-xl sm:text-2xl font-serif text-slate-100 mb-2">
+                Join our newsletter stream
+              </h3>
+              <p className="text-slate-400 text-xs sm:text-sm">
+                Receive weekly updates regarding courses, space missions, and
+                community achievements.
+              </p>
+            </div>
 
-          <form
-            onSubmit={handleSubscribe}
-            className="flex flex-col sm:flex-row gap-3 max-w-md md:mx-auto mb-8"
-          >
-            <input
-              type="email"
-              required
-              value={emailInput}
-              onChange={(e) => setEmailInput(e.target.value)}
-              placeholder="Enter your email"
-              className="bg-purple-950/50 border border-purple-800/40 rounded-full px-6 py-3 text-sm focus:outline-none focus:border-cyan-400 flex-1 text-slate-200 placeholder-slate-500"
-            />
-            <button
-              type="submit"
-              className="bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold px-6 py-3 rounded-full text-sm transition-all duration-300 flex items-center justify-center gap-2 shrink-0 shadow-[0_0_15px_rgba(34,211,238,0.4)]"
+            <form
+              onSubmit={handleSubscribe}
+              className="w-full md:w-auto flex flex-col sm:flex-row gap-3"
             >
-              <span>Subscribe</span>
-              <span>➔</span>
-            </button>
-          </form>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={emailInput}
+                onChange={(e) => setEmailInput(e.target.value)}
+                required
+                className="bg-[#0b0818] border border-purple-800/60 rounded-full px-5 py-3 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400 w-full sm:w-72"
+              />
+              <button
+                type="submit"
+                className="bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-6 py-3 rounded-full font-bold text-xs transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.3)] shrink-0"
+              >
+                SUBSCRIBE
+              </button>
+            </form>
+          </div>
 
           {subscribed && (
-            <p className="text-cyan-400 text-xs font-semibold mb-6 animate-pulse">
-              ✨ Thank you for subscribing to SAN Academy space updates!
-            </p>
+            <div className="mt-4 text-center text-cyan-400 text-xs font-medium animate-pulse">
+              Thank you for subscribing to our network stream!
+            </div>
           )}
-
-          <blockquote className="italic text-slate-400 text-xs md:text-sm max-w-lg md:mx-auto">
-            "The universe is a place of boundless opportunity and fascination."
-          </blockquote>
         </section>
-
-        {/* Footer Bottom */}
-        <footer className="border-t border-purple-900/40 py-8 px-6 text-xs text-slate-500 w-full">
-          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-6">
-              <span className="font-bold tracking-widest font-serif shine-text text-sm">
-                Skill Activation Network
-              </span>
-              <span>© 2026 SAN Co. Ltd. All rights reserved.</span>
-            </div>
-            <div className="flex gap-4">
-              <a
-                href="#privacy"
-                className="hover:text-cyan-400 transition-colors"
-              >
-                Privacy
-              </a>
-              <a
-                href="#terms"
-                className="hover:text-cyan-400 transition-colors"
-              >
-                Terms
-              </a>
-            </div>
-          </div>
-        </footer>
       </main>
+
+      {/* Footer Bottom */}
+      <footer className="w-full border-t border-purple-900/40 py-8 px-4 sm:px-6 text-center text-slate-500 text-xs z-10 bg-[#05030d]">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p>© 2026 Skill Activation Network. All rights reserved.</p>
+          <div className="flex items-center gap-6">
+            <a
+              href="#privacy"
+              className="hover:text-slate-300 transition-colors"
+            >
+              Privacy Policy
+            </a>
+            <a href="#terms" className="hover:text-slate-300 transition-colors">
+              Terms of Service
+            </a>
+            <a
+              href="#support"
+              className="hover:text-slate-300 transition-colors"
+            >
+              Support
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
