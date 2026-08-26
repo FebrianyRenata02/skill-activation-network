@@ -15,13 +15,6 @@ interface FeaturedFasilitas {
   externalLink?: string;
 }
 
-interface Course {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-}
-
 interface Mission {
   id: string;
   title: string;
@@ -101,49 +94,6 @@ const FEATURED_FASILITAS: FeaturedFasilitas[] = [
     image:
       "https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/SAN.png",
     externalLink: "https://san-global-digital.vercel.app/",
-  },
-];
-
-const COURSES_DATA: Course[] = [
-  {
-    id: "1",
-    title: "Aeno Navigation",
-    description:
-      "Master deep space trajectory, celestial orbits, and interstellar navigation fundamentals.",
-    image:
-      "https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=400&auto=format&fit=crop",
-  },
-  {
-    id: "2",
-    title: "Ring of Saturn & Study in Gas Giants",
-    description:
-      "Comprehensive study of Saturnian ring structures and planetary gas dynamics.",
-    image:
-      "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=400&auto=format&fit=crop",
-  },
-  {
-    id: "3",
-    title: "Saturn Studies & Science",
-    description:
-      "An in-depth analysis of atmospheric compositions and satellite moon systems.",
-    image:
-      "https://images.unsplash.com/photo-1614728423169-3f65fd722b7e?w=400&auto=format&fit=crop",
-  },
-  {
-    id: "4",
-    title: "Saturn Planets & Exoplanets",
-    description:
-      "Discover exoplanetary atmospheres and habits in neighboring solar systems.",
-    image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&auto=format&fit=crop",
-  },
-  {
-    id: "5",
-    title: "Deep Space Speciation & Galaxy Studies",
-    description:
-      "Exploring galactic evolution, dark matter mapping, and deep ocean worlds.",
-    image:
-      "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=400&auto=format&fit=crop",
   },
 ];
 
