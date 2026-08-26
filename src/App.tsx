@@ -208,7 +208,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#070512] text-slate-100 flex flex-col justify-between selection:bg-purple-500 selection:text-white relative overflow-x-hidden font-sans">
+    <div className="min-h-screen bg-[#070512] text-slate-100 flex flex-col justify-between selection:bg-purple-500 selection:text-white relative overflow-x-clip font-sans">
       <style>{`
         html {
           scroll-behavior: smooth;
@@ -226,8 +226,8 @@ export const App: React.FC = () => {
           50% { transform: scale(1.04); opacity: 1; }
         }
         @keyframes shine {
-          0% { background-position: 200% center; }
-          100% { background-position: -200% center; }
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
         }
         .animate-galaxy-spin {
           animation: galaxySpin 120s linear infinite;
@@ -253,34 +253,34 @@ export const App: React.FC = () => {
         }
       `}</style>
 
-      {/* Global Background */}
+      {/* Background Global */}
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-950/40 via-[#0a071d] to-[#04020a] pointer-events-none z-0" />
 
-      {/* Header Adaptif (Desktop, Tablet, Mobile & Smartwatch) */}
-      <header className="sticky top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#0b0818]/90 border-b border-purple-900/40 w-full">
-        <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 h-16 sm:h-20 flex items-center justify-between">
+      {/* Header Sticky Navbar */}
+      <header className="sticky top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#0b0818]/90 border-b border-purple-900/40 w-full shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
           <div className="flex items-center gap-2 overflow-hidden">
-            <span className="text-sm sm:text-xl md:text-2xl font-bold tracking-widest font-serif shine-text truncate">
+            <span className="text-lg sm:text-xl md:text-2xl font-bold tracking-widest font-serif shine-text truncate">
               Skill Activation Network
             </span>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">
-            <div className="relative">
-              <button
-                onClick={() => setIsServicesOpen(!isServicesOpen)}
-                className="flex items-center gap-3 hover:text-cyan-400 transition-colors focus:outline-none"
+            <div className="relative flex items-center gap-3">
+              <a
+                href="#planets"
+                className="hover:text-cyan-400 transition-colors"
               >
-                <a
-                  href="#planets"
-                  className="hover:text-cyan-400 transition-colors"
+                Fasilitas
+              </a>
+              <div className="flex items-center gap-1.5 pl-2 border-l border-purple-800/50">
+                <button
+                  onClick={() => setIsServicesOpen(!isServicesOpen)}
+                  className="flex items-center gap-1 hover:text-cyan-400 transition-colors focus:outline-none"
                 >
-                  Fasilitas
-                </a>
-                <div className="flex items-center gap-1.5 pl-2 border-l border-purple-800/50">
                   <span className="text-[10px] text-slate-500 uppercase tracking-widest">
-                    See More
+                    SEE MORE
                   </span>
                   <span
                     className={`transform transition-transform duration-300 text-xs ${
@@ -289,8 +289,8 @@ export const App: React.FC = () => {
                   >
                     ⌄
                   </span>
-                </div>
-              </button>
+                </button>
+              </div>
 
               {isServicesOpen && (
                 <div className="absolute top-full left-0 mt-3 w-56 bg-[#0b0818]/95 backdrop-blur-xl border border-purple-900/50 rounded-2xl shadow-2xl py-2 z-50 flex flex-col">
@@ -327,110 +327,110 @@ export const App: React.FC = () => {
             </a>
           </nav>
 
-          <div className="hidden lg:block">
-            <button className="bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-6 py-2 rounded-full font-bold text-sm transition-all duration-500 shadow-[0_0_20px_rgba(34,211,238,0.4)]">
+          <div className="flex items-center gap-2">
+            <button className="hidden sm:block bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-6 py-2 rounded-full font-bold text-sm transition-all duration-500 shadow-[0_0_20px_rgba(34,211,238,0.4)]">
               Enroll
             </button>
-          </div>
 
-          {/* Hamburger Button untuk HP, Tablet, & Smartwatch */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden text-slate-300 p-1.5 focus:outline-none shrink-0"
-            aria-label="Toggle Navigation Menu"
-          >
-            <svg
-              className="w-5 h-5 sm:w-7 sm:h-7"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            {/* Mobile Hamburger Toggle */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden text-slate-300 p-1 focus:outline-none shrink-0"
+              aria-label="Toggle Navigation Menu"
             >
-              {isMobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {isMobileMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
 
-        {/* Dropdown Menu untuk Mobile & Smartwatch */}
+        {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
           <div className="lg:hidden bg-[#0b0818]/95 backdrop-blur-2xl border-b border-purple-900/50 px-4 py-4 flex flex-col gap-3 text-center">
             <a
               href="#planets"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-slate-300 hover:text-cyan-400 text-xs sm:text-base py-1 font-medium"
+              className="text-slate-300 hover:text-cyan-400 text-sm py-1 font-medium"
             >
               Fasilitas
             </a>
             <a
               href="#trailer"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-slate-300 hover:text-cyan-400 text-xs sm:text-base py-1 font-medium"
+              className="text-slate-300 hover:text-cyan-400 text-sm py-1 font-medium"
             >
               Course Catalog
             </a>
             <a
               href="#team-work"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-slate-300 hover:text-cyan-400 text-xs sm:text-base py-1 font-medium"
+              className="text-slate-300 hover:text-cyan-400 text-sm py-1 font-medium"
             >
               Team Work
             </a>
             <a
               href="#blog"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-slate-300 hover:text-cyan-400 text-xs sm:text-base py-1 font-medium"
+              className="text-slate-300 hover:text-cyan-400 text-sm py-1 font-medium"
             >
               Blog
             </a>
-            <button className="bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 px-4 py-2 rounded-full font-bold text-xs sm:text-sm w-full mt-1">
+            <button className="sm:hidden bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 px-4 py-2 rounded-full font-bold text-xs w-full mt-1">
               Enroll
             </button>
           </div>
         )}
       </header>
 
-      {/* Main Container */}
+      {/* Main Content */}
       <main className="relative z-10 w-full flex-1">
         {/* Hero Section */}
         <section
           id="planets"
-          className="relative min-h-[calc(100vh-80px)] py-6 sm:py-12 flex flex-col justify-between items-center px-3 sm:px-6 max-w-7xl mx-auto w-full overflow-hidden text-center"
+          className="relative min-h-[calc(100vh-80px)] py-8 sm:py-12 flex flex-col justify-between items-center px-4 sm:px-6 max-w-7xl mx-auto w-full text-center"
         >
-          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] sm:w-[500px] md:w-[600px] h-[220px] sm:h-[500px] md:h-[600px] bg-purple-600/15 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none" />
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[500px] md:w-[600px] h-[300px] sm:h-[500px] md:h-[600px] bg-purple-600/15 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none" />
 
-          <div className="text-center max-w-3xl mx-auto z-10 mt-1 sm:mt-4">
-            <p className="text-cyan-400 tracking-[0.15em] sm:tracking-[0.3em] text-[9px] sm:text-xs font-semibold mb-1 sm:mb-2 uppercase">
+          <div className="text-left md:text-center max-w-3xl mx-auto z-10 mt-2 sm:mt-4">
+            <p className="text-cyan-400 tracking-[0.2em] sm:tracking-[0.3em] text-[10px] sm:text-xs font-semibold mb-2 uppercase">
               {currentFasilitas.subtitle}
             </p>
-            <h1 className="text-2xl sm:text-5xl md:text-7xl font-serif tracking-wider font-normal mb-2 sm:mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-400">
+            <h1 className="text-3xl sm:text-6xl md:text-8xl font-serif tracking-wider font-normal mb-3 sm:mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-400">
               {currentFasilitas.name}
             </h1>
-            <p className="text-slate-400 text-[11px] sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto min-h-[40px] px-1">
+            <p className="text-slate-400 text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto min-h-[50px] px-2">
               {currentFasilitas.description}
             </p>
 
-            <div className="mt-3 sm:mt-6 flex items-center justify-center gap-4">
-              <button className="bg-slate-100 text-slate-950 hover:bg-cyan-400 transition-all duration-500 px-5 sm:px-8 py-2 sm:py-3 rounded-full font-bold text-[10px] sm:text-xs tracking-wider shadow-[0_0_25px_rgba(255,255,255,0.3)]">
+            <div className="mt-4 sm:mt-6 flex items-center justify-start md:justify-center gap-4">
+              <button className="bg-slate-100 text-slate-950 hover:bg-cyan-400 transition-all duration-500 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-bold text-xs tracking-wider shadow-[0_0_25px_rgba(255,255,255,0.3)]">
                 GET STARTED
               </button>
             </div>
           </div>
 
-          {/* Graphic & Dynamic Navigation */}
-          <div className="relative w-full my-4 sm:my-6 flex flex-col md:flex-row items-center justify-between z-10 px-1 gap-3">
+          {/* Banner Navigasi Central */}
+          <div className="relative w-full my-6 flex flex-col md:flex-row items-center justify-between z-10 px-2 gap-4">
             <button
               onClick={handlePrevFasilitas}
               className="hidden md:flex items-center gap-2 text-xs font-semibold tracking-widest text-slate-400 hover:text-cyan-400 transition-colors uppercase p-4 group select-none text-left"
@@ -441,39 +441,40 @@ export const App: React.FC = () => {
               {prevFasilitasName}
             </button>
 
-            <div className="relative w-36 h-36 sm:w-72 sm:h-72 md:w-[380px] md:h-[380px] lg:w-[420px] lg:h-[420px] flex items-center justify-center group select-none transition-all duration-700">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500 via-fuchsia-600 to-purple-600 opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-1000 animate-cosmic-pulse" />
-              <div className="absolute -inset-2 sm:-inset-3 rounded-full p-[2px] sm:p-[3px] bg-[conic-gradient(from_0deg,#06b6d4,#8b5cf6,#ec4899,#3b82f6,#06b6d4)] animate-galaxy-spin opacity-90 shadow-[0_0_25px_rgba(139,92,246,0.7)]" />
-              <div className="absolute -inset-1 sm:-inset-1.5 rounded-full border border-dashed border-cyan-300/50 animate-reverse-spin opacity-80" />
+            <div className="relative w-48 h-48 sm:w-72 sm:h-72 md:w-[380px] md:h-[380px] lg:w-[420px] lg:h-[420px] flex items-center justify-center group select-none transition-all duration-700">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500 via-fuchsia-600 to-purple-600 opacity-75 blur-2xl group-hover:opacity-100 transition-opacity duration-1000 animate-cosmic-pulse" />
+              <div className="absolute -inset-3 rounded-full p-[3px] bg-[conic-gradient(from_0deg,#06b6d4,#8b5cf6,#ec4899,#3b82f6,#06b6d4)] animate-galaxy-spin opacity-90 shadow-[0_0_35px_rgba(139,92,246,0.7)]" />
+              <div className="absolute -inset-1.5 rounded-full border border-dashed border-cyan-300/50 animate-reverse-spin opacity-80" />
 
-              <div className="relative w-full h-full rounded-full aspect-square bg-[#080415] flex items-center justify-center shadow-[inset_0_0_30px_rgba(147,51,234,0.7),0_0_20px_rgba(34,211,238,0.5)] border border-cyan-400/50 overflow-hidden">
+              <div className="relative w-full h-full rounded-full aspect-square bg-[#080415] flex items-center justify-center shadow-[inset_0_0_40px_rgba(147,51,234,0.7),0_0_30px_rgba(34,211,238,0.5)] border border-cyan-400/50 overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?q=80&w=1548&auto=format&fit=crop"
                   alt="Fasilitas Background"
                   className="absolute inset-0 w-full h-full object-cover rounded-full aspect-square transition-transform duration-1000 group-hover:scale-110 opacity-95"
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30 pointer-events-none rounded-full" />
-                <div className="relative z-10 w-[85%] h-[85%] rounded-full aspect-square bg-purple-950 shadow-[0_0_30px_rgba(255,255,255,0.95),0_0_45px_rgba(34,211,238,0.85)] flex items-center justify-center border border-purple-300/80 transition-transform duration-700 group-hover:scale-105 overflow-hidden">
+                <div className="relative z-10 w-[85%] h-[85%] rounded-full aspect-square bg-purple-950 shadow-[0_0_40px_rgba(255,255,255,0.95),0_0_60px_rgba(34,211,238,0.85)] flex items-center justify-center border-2 border-purple-300/80 transition-transform duration-700 group-hover:scale-105 overflow-hidden">
                   <img
                     src="https://raw.githubusercontent.com/FebrianyRenata02/san-academy-bootcamp/refs/heads/main/src/assets/Untitled%20(33).png"
                     alt="SAN Academy Bootcamp Logo"
                     className="w-full h-full object-cover rounded-full aspect-square"
                   />
                 </div>
-                <div className="absolute inset-0 rounded-full border border-cyan-300/40 shadow-[inset_0_0_20px_rgba(0,0,0,0.7)] pointer-events-none z-20" />
+                <div className="absolute inset-0 rounded-full border border-cyan-300/40 shadow-[inset_0_0_25px_rgba(0,0,0,0.7)] pointer-events-none z-20" />
               </div>
             </div>
 
-            <div className="flex md:hidden items-center gap-3 sm:gap-6 mt-1">
+            {/* Mobile Controls */}
+            <div className="flex md:hidden items-center gap-4 mt-2">
               <button
                 onClick={handlePrevFasilitas}
-                className="text-[10px] sm:text-xs font-semibold tracking-wider text-slate-300 hover:text-cyan-400 bg-purple-950/60 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-purple-800/50"
+                className="text-xs font-semibold tracking-wider text-slate-300 hover:text-cyan-400 bg-purple-950/60 px-4 py-2 rounded-full border border-purple-800/50"
               >
                 ‹ {prevFasilitasName}
               </button>
               <button
                 onClick={handleNextFasilitas}
-                className="text-[10px] sm:text-xs font-semibold tracking-wider text-slate-300 hover:text-cyan-400 bg-purple-950/60 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-purple-800/50"
+                className="text-xs font-semibold tracking-wider text-slate-300 hover:text-cyan-400 bg-purple-950/60 px-4 py-2 rounded-full border border-purple-800/50"
               >
                 {nextFasilitasName} ›
               </button>
@@ -490,28 +491,28 @@ export const App: React.FC = () => {
             </button>
           </div>
 
-          <div className="z-10 text-center flex flex-col items-center gap-2 mt-1">
-            <button className="bg-slate-100 hover:bg-cyan-400 text-slate-950 px-5 py-1.5 sm:px-6 sm:py-2 rounded-full font-bold text-[10px] sm:text-xs transition-colors duration-300 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+          <div className="z-10 text-center flex flex-col items-center gap-2 mt-2">
+            <button className="bg-slate-100 hover:bg-cyan-400 text-slate-950 px-6 py-2 rounded-full font-bold text-xs transition-colors duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
               EXPLORE DEEP SPACE
             </button>
 
-            <div className="w-5 h-8 sm:w-6 sm:h-10 rounded-full border-2 border-slate-400/60 flex items-start justify-center p-1 mt-1 animate-bounce shadow-[0_0_12px_rgba(34,211,238,0.4)]">
-              <div className="w-1 h-2.5 sm:w-1.5 sm:h-3.5 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-full animate-pulse" />
+            <div className="w-6 h-10 rounded-full border-2 border-slate-400/60 flex items-start justify-center p-1 mt-2 animate-bounce shadow-[0_0_12px_rgba(34,211,238,0.4)]">
+              <div className="w-1.5 h-3.5 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-full animate-pulse" />
             </div>
           </div>
         </section>
 
         {/* Featured Fasilitas Section */}
-        <section className="py-10 md:py-20 px-3 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-900/30">
-          <h2 className="text-center text-[10px] sm:text-xs tracking-[0.25em] font-bold text-cyan-400 mb-6 md:mb-12 uppercase">
+        <section className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-900/30">
+          <h2 className="text-left md:text-center text-xs tracking-[0.3em] font-bold text-cyan-400 mb-8 md:mb-12 uppercase">
             FEATURED FACILITIES
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {FEATURED_FASILITAS.map((item, index) => (
               <div
                 key={index}
-                className="bg-purple-950/20 border border-purple-800/30 rounded-2xl p-4 sm:p-6 text-center hover:border-cyan-500/50 transition-all duration-500 hover:-translate-y-1 group cursor-pointer backdrop-blur-sm"
+                className="bg-purple-950/20 border border-purple-800/30 rounded-2xl p-6 text-left md:text-center hover:border-cyan-500/50 transition-all duration-500 hover:-translate-y-1 group cursor-pointer backdrop-blur-sm"
                 onClick={() => {
                   const foundIndex = FASILITAS_DATA.findIndex(
                     (f) => f.name.toLowerCase() === item.name.toLowerCase(),
@@ -519,7 +520,7 @@ export const App: React.FC = () => {
                   if (foundIndex !== -1) setActiveFasilitasIndex(foundIndex);
                 }}
               >
-                <div className="relative w-14 h-14 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4">
+                <div className="relative w-20 h-20 mb-4 md:mx-auto">
                   <div className="absolute inset-0 rounded-full bg-cyan-500/20 blur-md group-hover:bg-cyan-400/40 transition-all duration-500" />
                   <img
                     src={item.image}
@@ -527,17 +528,17 @@ export const App: React.FC = () => {
                     className="relative w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-500 border border-purple-500/30"
                   />
                 </div>
-                <h3 className="font-serif tracking-wider text-xs sm:text-base mb-1 text-slate-200 group-hover:text-cyan-300 transition-colors duration-300">
+                <h3 className="font-serif tracking-wider text-base mb-1 text-slate-200 group-hover:text-cyan-300 transition-colors duration-300">
                   {item.name}
                 </h3>
               </div>
             ))}
           </div>
 
-          <div className="mt-6 md:mt-12 bg-purple-950/30 border border-purple-800/30 rounded-3xl p-5 sm:p-8 flex flex-col md:flex-row items-center gap-5 md:gap-8 backdrop-blur-md text-center md:text-left">
+          <div className="mt-8 md:mt-12 bg-purple-950/30 border border-purple-800/30 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8 backdrop-blur-md">
             <div className="relative shrink-0">
               <div className="absolute inset-0 rounded-full bg-purple-600/30 blur-xl animate-pulse" />
-              <div className="relative w-28 h-28 sm:w-48 sm:h-48 rounded-full bg-purple-950 border border-purple-500/40 shadow-[0_0_30px_rgba(168,85,247,0.3)] flex items-center justify-center overflow-hidden p-2">
+              <div className="relative w-36 h-36 sm:w-48 sm:h-48 rounded-full bg-purple-950 border border-purple-500/40 shadow-[0_0_30px_rgba(168,85,247,0.3)] flex items-center justify-center overflow-hidden p-2">
                 <img
                   src="https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/Untitled%20(33).png"
                   alt="Skill Activation Network Logo"
@@ -545,11 +546,11 @@ export const App: React.FC = () => {
                 />
               </div>
             </div>
-            <div>
-              <h3 className="text-lg sm:text-2xl font-serif text-slate-100 mb-2">
+            <div className="text-left">
+              <h3 className="text-xl sm:text-2xl font-serif text-slate-100 mb-2">
                 Skill Activation Network
               </h3>
-              <p className="text-slate-400 text-[11px] sm:text-sm leading-relaxed max-w-xl">
+              <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-xl">
                 Skill Activation Network provides an industry-standard learning
                 environment equipped with workspaces, Co-Working Spaces, Open
                 Courses & Bootcamps, and a complete library to support your
@@ -562,19 +563,19 @@ export const App: React.FC = () => {
         {/* Course Catalog Section */}
         <section
           id="trailer"
-          className="py-10 md:py-20 px-3 sm:px-6 max-w-7xl mx-auto w-full"
+          className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full"
         >
-          <h2 className="text-center text-[10px] sm:text-xs tracking-[0.25em] font-bold text-cyan-400 mb-6 md:mb-12 uppercase">
+          <h2 className="text-left md:text-center text-xs tracking-[0.3em] font-bold text-cyan-400 mb-8 md:mb-12 uppercase">
             COURSE CATALOG
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {COURSES_DATA.map((course) => (
               <div
                 key={course.id}
-                className="bg-[#100a26]/80 border border-purple-900/40 rounded-2xl overflow-hidden hover:border-cyan-500/40 transition-all duration-500 flex flex-col justify-between group text-left"
+                className="bg-[#100a26]/80 border border-purple-900/40 rounded-2xl overflow-hidden hover:border-cyan-500/40 transition-all duration-500 flex flex-col justify-between group"
               >
-                <div className="overflow-hidden relative h-36 sm:h-44">
+                <div className="overflow-hidden relative h-44">
                   <img
                     src={course.image}
                     alt={course.title}
@@ -583,16 +584,16 @@ export const App: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#100a26] via-transparent to-transparent opacity-80" />
                 </div>
 
-                <div className="p-4 sm:p-6 flex-1 flex flex-col justify-between">
+                <div className="p-6 flex-1 flex flex-col justify-between text-left">
                   <div>
-                    <h3 className="font-semibold text-xs sm:text-base mb-1.5 text-slate-200 group-hover:text-cyan-300 transition-colors duration-300">
+                    <h3 className="font-semibold text-base mb-2 text-slate-200 group-hover:text-cyan-300 transition-colors duration-300">
                       {course.title}
                     </h3>
-                    <p className="text-slate-400 text-[11px] sm:text-xs leading-relaxed mb-4 sm:mb-6">
+                    <p className="text-slate-400 text-xs leading-relaxed mb-6">
                       {course.description}
                     </p>
                   </div>
-                  <button className="bg-purple-900/40 hover:bg-cyan-500 hover:text-slate-950 border border-purple-700/50 py-2 rounded-xl text-[11px] sm:text-xs font-bold text-cyan-300 transition-all duration-300 w-full shadow-sm">
+                  <button className="bg-purple-900/40 hover:bg-cyan-500 hover:text-slate-950 border border-purple-700/50 py-2.5 rounded-xl text-xs font-bold text-cyan-300 transition-all duration-300 w-full shadow-sm">
                     ENROLL NOW
                   </button>
                 </div>
@@ -604,29 +605,29 @@ export const App: React.FC = () => {
         {/* Team Work Section */}
         <section
           id="team-work"
-          className="py-10 md:py-20 px-3 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-900/30"
+          className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-900/30"
         >
-          <h2 className="text-center text-[10px] sm:text-xs tracking-[0.25em] font-bold text-cyan-400 mb-6 md:mb-12 uppercase">
+          <h2 className="text-left md:text-center text-xs tracking-[0.3em] font-bold text-cyan-400 mb-8 md:mb-12 uppercase">
             Team Work
           </h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
             {MISSIONS_DATA.map((mission) => (
               <div
                 key={mission.id}
-                className="flex flex-col items-center text-center group"
+                className="flex flex-col items-start md:items-center text-left md:text-center group"
               >
-                <div className="relative w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-purple-900/30 border border-purple-500/40 flex items-center justify-center p-1.5 sm:p-2 mb-2 sm:mb-4 group-hover:border-cyan-400 transition-colors duration-300 shadow-[0_0_20px_rgba(168,85,247,0.2)]">
+                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-purple-900/30 border border-purple-500/40 flex items-center justify-center p-2 mb-3 sm:mb-4 group-hover:border-cyan-400 transition-colors duration-300 shadow-[0_0_20px_rgba(168,85,247,0.2)]">
                   <img
                     src={mission.patchUrl}
                     alt={mission.title}
                     className="w-full h-full object-cover rounded-full"
                   />
                 </div>
-                <span className="text-[9px] sm:text-xs text-cyan-400 font-mono mb-0.5">
+                <span className="text-xs text-cyan-400 font-mono mb-1">
                   {mission.date}
                 </span>
-                <h4 className="font-semibold text-[11px] sm:text-sm text-slate-200">
+                <h4 className="font-semibold text-xs sm:text-sm text-slate-200">
                   {mission.title}
                 </h4>
               </div>
@@ -635,51 +636,51 @@ export const App: React.FC = () => {
         </section>
 
         {/* Global Space Community Section */}
-        <section className="py-10 md:py-20 px-3 sm:px-6 max-w-7xl mx-auto w-full">
-          <h2 className="text-center text-[10px] sm:text-xs tracking-[0.25em] font-bold text-cyan-400 mb-6 md:mb-12 uppercase">
+        <section className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full">
+          <h2 className="text-left md:text-center text-xs tracking-[0.3em] font-bold text-cyan-400 mb-8 md:mb-12 uppercase">
             GLOBAL SPACE COMMUNITY
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-            <div className="bg-purple-950/20 border border-purple-800/30 rounded-2xl p-4 sm:p-6 hover:border-purple-600/50 transition-colors duration-300 text-left">
-              <h3 className="font-semibold text-xs sm:text-sm mb-2 text-slate-200">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-purple-950/20 border border-purple-800/30 rounded-2xl p-6 text-left hover:border-purple-600/50 transition-colors duration-300">
+              <h3 className="font-semibold text-sm mb-2 text-slate-200">
                 Latest community star map updates
               </h3>
-              <p className="text-slate-400 text-[11px] sm:text-xs leading-relaxed mb-3 sm:mb-4">
+              <p className="text-slate-400 text-xs leading-relaxed mb-4">
                 Explore user-submitted astronomical observations updated live
                 from observatories worldwide.
               </p>
               <a
                 href="#enroll"
-                className="text-[11px] sm:text-xs font-semibold text-cyan-400 hover:underline"
+                className="text-xs font-semibold text-cyan-400 hover:underline"
               >
                 ENROLL NOW
               </a>
             </div>
 
-            <div className="bg-purple-950/20 border border-purple-800/30 rounded-2xl p-4 sm:p-6 hover:border-purple-600/50 transition-colors duration-300 text-left">
-              <h3 className="font-semibold text-xs sm:text-sm mb-2 text-slate-200">
+            <div className="bg-purple-950/20 border border-purple-800/30 rounded-2xl p-6 text-left hover:border-purple-600/50 transition-colors duration-300">
+              <h3 className="font-semibold text-sm mb-2 text-slate-200">
                 New galaxy accent design challenge winner
               </h3>
-              <p className="text-slate-400 text-[11px] sm:text-xs leading-relaxed mb-3 sm:mb-4">
+              <p className="text-slate-400 text-xs leading-relaxed mb-4">
                 Congratulations to our community UI designers for creating
                 stunning space visualization interfaces.
               </p>
               <a
                 href="#enroll"
-                className="text-[11px] sm:text-xs font-semibold text-cyan-400 hover:underline"
+                className="text-xs font-semibold text-cyan-400 hover:underline"
               >
                 ENROLL NOW
               </a>
             </div>
 
-            <div className="bg-purple-950/20 border border-purple-800/30 rounded-2xl p-4 sm:p-6 flex flex-col justify-between hover:border-purple-600/50 transition-colors duration-300 text-left">
-              <div className="flex items-center gap-2 mb-3 sm:mb-4">
-                <span className="text-[10px] sm:text-xs font-semibold tracking-wider text-cyan-400">
+            <div className="bg-purple-950/20 border border-purple-800/30 rounded-2xl p-6 text-left flex flex-col justify-between hover:border-purple-600/50 transition-colors duration-300">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-xs font-semibold tracking-wider text-cyan-400">
                   🌐 LIVE NETWORK MAP
                 </span>
               </div>
-              <p className="text-slate-400 text-[11px] sm:text-xs leading-relaxed">
+              <p className="text-slate-400 text-xs leading-relaxed">
                 50,000+ active students collaborating across 120 countries.
               </p>
             </div>
@@ -689,19 +690,19 @@ export const App: React.FC = () => {
         {/* Footer & Subscription Section */}
         <section
           id="blog"
-          className="py-10 md:py-20 px-3 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-900/30 text-center"
+          className="py-16 md:py-20 px-4 sm:px-6 max-w-4xl mx-auto text-left md:text-center w-full border-t border-purple-900/30"
         >
-          <h2 className="text-lg sm:text-2xl md:text-3xl font-serif mb-2 sm:mb-3 tracking-wider">
+          <h2 className="text-2xl md:text-3xl font-serif mb-3 tracking-wider">
             STAY INFORMED
           </h2>
-          <p className="text-slate-400 text-[11px] sm:text-sm mb-5 sm:mb-8">
+          <p className="text-slate-400 text-xs md:text-sm mb-8">
             Explore planet discovery news, weekly astronomical research updates,
             and course announcements.
           </p>
 
           <form
             onSubmit={handleSubscribe}
-            className="flex flex-col sm:flex-row gap-2.5 max-w-md mx-auto mb-5 sm:mb-6"
+            className="flex flex-col sm:flex-row gap-3 max-w-md md:mx-auto mb-8"
           >
             <input
               type="email"
@@ -709,11 +710,11 @@ export const App: React.FC = () => {
               value={emailInput}
               onChange={(e) => setEmailInput(e.target.value)}
               placeholder="Enter your email"
-              className="bg-purple-950/50 border border-purple-800/40 rounded-full px-5 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm focus:outline-none focus:border-cyan-400 flex-1 text-slate-200 placeholder-slate-500"
+              className="bg-purple-950/50 border border-purple-800/40 rounded-full px-6 py-3 text-sm focus:outline-none focus:border-cyan-400 flex-1 text-slate-200 placeholder-slate-500"
             />
             <button
               type="submit"
-              className="bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold px-5 py-2.5 sm:px-6 sm:py-3 rounded-full text-xs sm:text-sm transition-all duration-300 flex items-center justify-center gap-2 shrink-0 shadow-[0_0_15px_rgba(34,211,238,0.4)]"
+              className="bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold px-6 py-3 rounded-full text-sm transition-all duration-300 flex items-center justify-center gap-2 shrink-0 shadow-[0_0_15px_rgba(34,211,238,0.4)]"
             >
               <span>Subscribe</span>
               <span>➔</span>
@@ -721,39 +722,42 @@ export const App: React.FC = () => {
           </form>
 
           {subscribed && (
-            <p className="text-cyan-400 text-[11px] sm:text-xs font-semibold mb-5 sm:mb-6 animate-pulse">
+            <p className="text-cyan-400 text-xs font-semibold mb-6 animate-pulse">
               ✨ Thank you for subscribing to SAN Academy space updates!
             </p>
           )}
 
-          <blockquote className="italic text-slate-400 text-[11px] sm:text-sm max-w-lg mx-auto">
+          <blockquote className="italic text-slate-400 text-xs md:text-sm max-w-lg md:mx-auto">
             "The universe is a place of boundless opportunity and fascination."
           </blockquote>
         </section>
+
+        {/* Footer Bottom */}
+        <footer className="border-t border-purple-900/40 py-8 px-6 text-xs text-slate-500 w-full">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-6">
+              <span className="font-bold tracking-widest font-serif shine-text text-sm">
+                Skill Activation Network
+              </span>
+              <span>© 2026 SAN Co., Ltd. All rights reserved.</span>
+            </div>
+            <div className="flex gap-4">
+              <a
+                href="#privacy"
+                className="hover:text-cyan-400 transition-colors"
+              >
+                Privacy
+              </a>
+              <a
+                href="#terms"
+                className="hover:text-cyan-400 transition-colors"
+              >
+                Terms
+              </a>
+            </div>
+          </div>
+        </footer>
       </main>
-
-      {/* Footer Container */}
-      <footer className="border-t border-purple-900/40 py-6 md:py-10 px-3 sm:px-6 text-[10px] sm:text-xs text-slate-500 relative z-10 w-full">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 md:gap-6 text-center md:text-left">
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6">
-            <span className="font-serif font-bold text-xs sm:text-base tracking-wider shine-text">
-              Skill Activation Network
-            </span>
-            <p>
-              © {new Date().getFullYear()} SAN Co., Ltd. All rights reserved.
-            </p>
-          </div>
-
-          <div className="flex gap-4 sm:gap-6 text-slate-400">
-            <a href="#" className="hover:text-white transition-colors">
-              Privacy
-            </a>
-            <a href="#" className="hover:text-white transition-colors">
-              Terms
-            </a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };
