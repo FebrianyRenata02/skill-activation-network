@@ -6,7 +6,7 @@ interface Fasilitas {
   subtitle: string;
   description: string;
   image: string;
-  externalLink?: string; // Menambahkan properti opsional untuk tautan eksternal
+  externalLink?: string;
 }
 
 interface FeaturedFasilitas {
@@ -66,7 +66,7 @@ const FASILITAS_DATA: Fasilitas[] = [
       "Wadah bagi siswa untuk merintis startup, mendapatkan mentorship langsung, serta akses ke ekosistem industri digital.",
     image:
       "https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/san-academy2.png",
-    externalLink: "https://san-academy-fkyn.vercel.app/", // Hyperlink otomatis ke san-academy
+    externalLink: "https://san-academy-fkyn.vercel.app/",
   },
   {
     id: "library",
@@ -89,7 +89,7 @@ const FEATURED_FASILITAS: FeaturedFasilitas[] = [
     name: "LEARNING FACILITIES",
     image:
       "https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/san-academy2.png",
-    externalLink: "https://san-academy-fkyn.vercel.app/", // Mengarahkan card learning facilities ke link ini
+    externalLink: "https://san-academy-fkyn.vercel.app/",
   },
   {
     name: "WORKING SPACE",
@@ -213,7 +213,6 @@ export const App: React.FC = () => {
     }
   };
 
-  // Helper universal untuk menangani redirect tautan eksternal fasilitas
   const handleFasilitasRedirect = () => {
     if (currentFasilitas.externalLink) {
       window.location.href = currentFasilitas.externalLink;
@@ -730,25 +729,23 @@ export const App: React.FC = () => {
           </div>
         </section>
 
-        {/* Footer & Subscription Section */}
+        {/* Stay Informed / Newsletter Section */}
         <section
           id="blog"
-          className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-900/30"
+          className="py-16 md:py-20 px-4 sm:px-6 max-w-5xl mx-auto w-full text-center"
         >
-          <div className="bg-gradient-to-r from-purple-950/40 via-purple-900/20 to-cyan-950/30 border border-purple-800/30 rounded-3xl p-8 sm:p-12 backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="text-left max-w-xl">
-              <h3 className="text-xl sm:text-2xl font-serif text-slate-100 mb-2">
-                Join our newsletter stream
-              </h3>
-              <p className="text-slate-400 text-xs sm:text-sm">
-                Receive weekly updates regarding courses, space missions, and
-                community achievements.
-              </p>
-            </div>
+          <div className="bg-gradient-to-b from-[#100a26]/90 via-[#0a071d] to-[#070512] border border-purple-900/40 rounded-3xl p-8 sm:p-14 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+            <h2 className="text-2xl sm:text-4xl font-serif tracking-wider font-normal mb-3 text-slate-100">
+              STAY INFORMED
+            </h2>
+            <p className="text-slate-400 text-xs sm:text-sm max-w-lg mx-auto mb-8 leading-relaxed">
+              Explore planet discovery news, weekly astronomical research
+              updates, and course announcements.
+            </p>
 
             <form
               onSubmit={handleSubscribe}
-              className="w-full md:w-auto flex flex-col sm:flex-row gap-3"
+              className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto"
             >
               <input
                 type="email"
@@ -756,44 +753,51 @@ export const App: React.FC = () => {
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
                 required
-                className="bg-[#0b0818] border border-purple-800/60 rounded-full px-5 py-3 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400 w-full sm:w-72"
+                className="bg-[#0b0818] border border-purple-800/60 rounded-full px-6 py-3.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400 w-full"
               />
               <button
                 type="submit"
-                className="bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-6 py-3 rounded-full font-bold text-xs transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.3)] shrink-0"
+                className="bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-8 py-3.5 rounded-full font-bold text-xs transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.4)] shrink-0 w-full sm:w-auto"
               >
-                SUBSCRIBE
+                Subscribe →
               </button>
             </form>
-          </div>
 
-          {subscribed && (
-            <div className="mt-4 text-center text-cyan-400 text-xs font-medium animate-pulse">
-              Thank you for subscribing to our network stream!
-            </div>
-          )}
+            <p className="text-[11px] italic text-slate-500 mt-6 font-serif">
+              "The universe is a place of boundless opportunity and
+              fascination."
+            </p>
+
+            {subscribed && (
+              <div className="mt-4 text-cyan-400 text-xs font-medium animate-pulse">
+                Thank you for staying informed with our network!
+              </div>
+            )}
+          </div>
         </section>
       </main>
 
       {/* Footer Bottom */}
-      <footer className="w-full border-t border-purple-900/40 py-8 px-4 sm:px-6 text-center text-slate-500 text-xs z-10 bg-[#05030d]">
+      <footer className="w-full border-t border-purple-900/40 py-6 px-4 sm:px-6 text-xs z-10 bg-[#05030d]">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© 2026 Skill Activation Network. All rights reserved.</p>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2">
+            <span className="font-serif tracking-widest text-slate-200 font-semibold shine-text">
+              Skill Activation Network
+            </span>
+            <span className="text-slate-600">|</span>
+            <span className="text-slate-500">
+              © 2026 SAN Co., Ltd. All rights reserved.
+            </span>
+          </div>
+          <div className="flex items-center gap-6 text-slate-400">
             <a
               href="#privacy"
-              className="hover:text-slate-300 transition-colors"
+              className="hover:text-cyan-400 transition-colors"
             >
-              Privacy Policy
+              Privacy
             </a>
-            <a href="#terms" className="hover:text-slate-300 transition-colors">
-              Terms of Service
-            </a>
-            <a
-              href="#support"
-              className="hover:text-slate-300 transition-colors"
-            >
-              Support
+            <a href="#terms" className="hover:text-cyan-400 transition-colors">
+              Terms
             </a>
           </div>
         </div>
