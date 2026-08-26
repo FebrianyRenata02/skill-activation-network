@@ -401,13 +401,7 @@ export const App: React.FC = () => {
             >
               Fasilitas
             </a>
-            <a
-              href="#trailer"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-slate-300 hover:text-cyan-400 text-sm py-1 font-medium"
-            >
-              Course Catalog
-            </a>
+            
             <a
               href="#team-work"
               onClick={() => setIsMobileMenuOpen(false)}
