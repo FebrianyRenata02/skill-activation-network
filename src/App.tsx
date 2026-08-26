@@ -104,7 +104,7 @@ const FEATURED_FASILITAS: FeaturedFasilitas[] = [
   },
 ];
 
-const COURSES_DATA: Course[] = 
+const COURSES_DATA: Course[] = [
   {
     id: "1",
     title: "Aeno Navigation",
