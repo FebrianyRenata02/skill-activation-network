@@ -729,23 +729,25 @@ export const App: React.FC = () => {
           </div>
         </section>
 
-        {/* Stay Informed / Newsletter Section */}
+        {/* Footer & Subscription Section */}
         <section
           id="blog"
-          className="py-16 md:py-20 px-4 sm:px-6 max-w-5xl mx-auto w-full text-center"
+          className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-900/30"
         >
-          <div className="bg-gradient-to-b from-[#100a26]/90 via-[#0a071d] to-[#070512] border border-purple-900/40 rounded-3xl p-8 sm:p-14 backdrop-blur-xl shadow-2xl relative overflow-hidden">
-            <h2 className="text-2xl sm:text-4xl font-serif tracking-wider font-normal mb-3 text-slate-100">
-              STAY INFORMED
-            </h2>
-            <p className="text-slate-400 text-xs sm:text-sm max-w-lg mx-auto mb-8 leading-relaxed">
-              Explore planet discovery news, weekly astronomical research
-              updates, and course announcements.
-            </p>
+          <div className="bg-gradient-to-r from-purple-950/40 via-purple-900/20 to-cyan-950/30 border border-purple-800/30 rounded-3xl p-8 sm:p-12 backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="text-left max-w-xl">
+              <h3 className="text-xl sm:text-2xl font-serif text-slate-100 mb-2">
+                Join our newsletter stream
+              </h3>
+              <p className="text-slate-400 text-xs sm:text-sm">
+                Receive weekly updates regarding courses, space missions, and
+                community achievements.
+              </p>
+            </div>
 
             <form
               onSubmit={handleSubscribe}
-              className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto"
+              className="w-full md:w-auto flex flex-col sm:flex-row gap-3"
             >
               <input
                 type="email"
@@ -753,27 +755,22 @@ export const App: React.FC = () => {
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
                 required
-                className="bg-[#0b0818] border border-purple-800/60 rounded-full px-6 py-3.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400 w-full"
+                className="bg-[#0b0818] border border-purple-800/60 rounded-full px-5 py-3 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400 w-full sm:w-72"
               />
               <button
                 type="submit"
-                className="bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-8 py-3.5 rounded-full font-bold text-xs transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.4)] shrink-0 w-full sm:w-auto"
+                className="bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-6 py-3 rounded-full font-bold text-xs transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.3)] shrink-0"
               >
-                Subscribe →
+                SUBSCRIBE
               </button>
             </form>
-
-            <p className="text-[11px] italic text-slate-500 mt-6 font-serif">
-              "The universe is a place of boundless opportunity and
-              fascination."
-            </p>
-
-            {subscribed && (
-              <div className="mt-4 text-cyan-400 text-xs font-medium animate-pulse">
-                Thank you for staying informed with our network!
-              </div>
-            )}
           </div>
+
+          {subscribed && (
+            <div className="mt-4 text-center text-cyan-400 text-xs font-medium animate-pulse">
+              Thank you for subscribing to our network stream!
+            </div>
+          )}
         </section>
       </main>
 
