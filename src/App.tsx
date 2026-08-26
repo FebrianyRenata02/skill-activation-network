@@ -602,47 +602,6 @@ export const App: React.FC = () => {
           </div>
         </section>
 
-        {/* Course Catalog Section */}
-        <section
-          id="trailer"
-          className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full"
-        >
-          <h2 className="text-left md:text-center text-xs tracking-[0.3em] font-bold text-cyan-400 mb-8 md:mb-12 uppercase">
-            COURSE CATALOG
-          </h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {COURSES_DATA.map((course) => (
-              <div
-                key={course.id}
-                className="bg-[#100a26]/80 border border-purple-900/40 rounded-2xl overflow-hidden hover:border-cyan-500/40 transition-all duration-500 flex flex-col justify-between group"
-              >
-                <div className="overflow-hidden relative h-44">
-                  <img
-                    src={course.image}
-                    alt={course.title}
-                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#100a26] via-transparent to-transparent opacity-80" />
-                </div>
-
-                <div className="p-6 flex-1 flex flex-col justify-between text-left">
-                  <div>
-                    <h3 className="font-semibold text-base mb-2 text-slate-200 group-hover:text-cyan-300 transition-colors duration-300">
-                      {course.title}
-                    </h3>
-                    <p className="text-slate-400 text-xs leading-relaxed mb-6">
-                      {course.description}
-                    </p>
-                  </div>
-                  <button className="bg-purple-900/40 hover:bg-cyan-500 hover:text-slate-950 border border-purple-700/50 py-2.5 rounded-xl text-xs font-bold text-cyan-300 transition-all duration-300 w-full shadow-sm">
-                    ENROLL NOW
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
 
         {/* Team Work Section */}
         <section
@@ -674,58 +633,6 @@ export const App: React.FC = () => {
                 </h4>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* Global Space Community Section */}
-        <section className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full">
-          <h2 className="text-left md:text-center text-xs tracking-[0.3em] font-bold text-cyan-400 mb-8 md:mb-12 uppercase">
-            GLOBAL SPACE COMMUNITY
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-purple-950/20 border border-purple-800/30 rounded-2xl p-6 text-left hover:border-purple-600/50 transition-colors duration-300">
-              <h3 className="font-semibold text-sm mb-2 text-slate-200">
-                Latest community star map updates
-              </h3>
-              <p className="text-slate-400 text-xs leading-relaxed mb-4">
-                Explore user-submitted astronomical observations updated live
-                from observatories worldwide.
-              </p>
-              <a
-                href="#enroll"
-                className="text-xs font-semibold text-cyan-400 hover:underline"
-              >
-                ENROLL NOW
-              </a>
-            </div>
-
-            <div className="bg-purple-950/20 border border-purple-800/30 rounded-2xl p-6 text-left hover:border-purple-600/50 transition-colors duration-300">
-              <h3 className="font-semibold text-sm mb-2 text-slate-200">
-                New galaxy accent design challenge winner
-              </h3>
-              <p className="text-slate-400 text-xs leading-relaxed mb-4">
-                Congratulations to our community UI designers for creating
-                stunning space visualization interfaces.
-              </p>
-              <a
-                href="#enroll"
-                className="text-xs font-semibold text-cyan-400 hover:underline"
-              >
-                ENROLL NOW
-              </a>
-            </div>
-
-            <div className="bg-purple-950/20 border border-purple-800/30 rounded-2xl p-6 text-left flex flex-col justify-between hover:border-purple-600/50 transition-colors duration-300">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-xs font-semibold tracking-wider text-cyan-400">
-                  🌐 LIVE NETWORK MAP
-                </span>
-              </div>
-              <p className="text-slate-400 text-xs leading-relaxed">
-                50,000+ active students collaborating across 120 countries.
-              </p>
-            </div>
           </div>
         </section>
 
