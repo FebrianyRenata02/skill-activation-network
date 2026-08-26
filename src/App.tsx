@@ -338,12 +338,6 @@ export const App: React.FC = () => {
             </div>
 
             <a
-              href="#trailer"
-              className="hover:text-cyan-400 transition-colors"
-            >
-              Course Catalog
-            </a>
-            <a
               href="#team-work"
               className="hover:text-cyan-400 transition-colors"
             >
