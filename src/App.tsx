@@ -217,16 +217,17 @@ export const App: React.FC = () => {
           100% { transform: rotate(360deg); }
         }
         @keyframes reverseGalaxySpin {
-          0% { transform: rotate(360deg); }
-          100% { transform: rotate(0deg); }
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
         @keyframes cosmicPulse {
           0%, 100% { transform: scale(1); opacity: 0.85; }
           50% { transform: scale(1.04); opacity: 1; }
         }
+        /* Animasi kilau teks bergerak dari KIRI ke KANAN */
         @keyframes shine {
-          0% { background-position: -200% center; }
-          100% { background-position: 200% center; }
+          0% { background-position: 200% center; }
+          100% { background-position: -200% center; }
         }
         .animate-galaxy-spin {
           animation: galaxySpin 120s linear infinite;
@@ -270,7 +271,10 @@ export const App: React.FC = () => {
                 onClick={() => setIsServicesOpen(!isServicesOpen)}
                 className="flex items-center gap-3 hover:text-cyan-400 transition-colors focus:outline-none"
               >
-                <a href="#planets" className="hover:text-cyan-400 transition-colors">
+                <a
+                  href="#planets"
+                  className="hover:text-cyan-400 transition-colors"
+                >
                   Fasilitas
                 </a>
                 <div className="flex items-center gap-1.5 pl-2 border-l border-purple-800/50">
@@ -305,10 +309,16 @@ export const App: React.FC = () => {
               )}
             </div>
 
-            <a href="#trailer" className="hover:text-cyan-400 transition-colors">
+            <a
+              href="#trailer"
+              className="hover:text-cyan-400 transition-colors"
+            >
               Course Catalog
             </a>
-            <a href="#team-work" className="hover:text-cyan-400 transition-colors">
+            <a
+              href="#team-work"
+              className="hover:text-cyan-400 transition-colors"
+            >
               Team Work
             </a>
             <a href="#blog" className="hover:text-cyan-400 transition-colors">
@@ -417,7 +427,7 @@ export const App: React.FC = () => {
               className="bg-purple-950/20 border border-purple-800/30 rounded-2xl p-6 text-center hover:border-cyan-500/50 transition-all duration-500 hover:-translate-y-1 group cursor-pointer backdrop-blur-sm"
               onClick={() => {
                 const foundIndex = FASILITAS_DATA.findIndex(
-                  (f) => f.name.toLowerCase() === item.name.toLowerCase()
+                  (f) => f.name.toLowerCase() === item.name.toLowerCase(),
                 );
                 if (foundIndex !== -1) setActiveFasilitasIndex(foundIndex);
               }}
@@ -463,7 +473,10 @@ export const App: React.FC = () => {
       </section>
 
       {/* Course Catalog Section */}
-      <section id="trailer" className="py-20 px-6 max-w-7xl mx-auto w-full relative z-10">
+      <section
+        id="trailer"
+        className="py-20 px-6 max-w-7xl mx-auto w-full relative z-10"
+      >
         <h2 className="text-center text-xs tracking-[0.3em] font-bold text-cyan-400 mb-12 uppercase">
           COURSE CATALOG
         </h2>
@@ -502,14 +515,20 @@ export const App: React.FC = () => {
       </section>
 
       {/* Team Work Section */}
-      <section id="team-work" className="py-20 px-6 max-w-7xl mx-auto w-full border-t border-purple-900/30 relative z-10">
+      <section
+        id="team-work"
+        className="py-20 px-6 max-w-7xl mx-auto w-full border-t border-purple-900/30 relative z-10"
+      >
         <h2 className="text-center text-xs tracking-[0.3em] font-bold text-cyan-400 mb-12 uppercase">
           Team Work
         </h2>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {MISSIONS_DATA.map((mission) => (
-            <div key={mission.id} className="flex flex-col items-center text-center group">
+            <div
+              key={mission.id}
+              className="flex flex-col items-center text-center group"
+            >
               <div className="relative w-20 h-20 rounded-full bg-purple-900/30 border border-purple-500/40 flex items-center justify-center p-2 mb-4 group-hover:border-cyan-400 transition-colors duration-300 shadow-[0_0_20px_rgba(168,85,247,0.2)]">
                 <img
                   src={mission.patchUrl}
@@ -543,7 +562,10 @@ export const App: React.FC = () => {
               Explore user-submitted astronomical observations updated live from
               observatories worldwide.
             </p>
-            <a href="#enroll" className="text-xs font-semibold text-cyan-400 hover:underline">
+            <a
+              href="#enroll"
+              className="text-xs font-semibold text-cyan-400 hover:underline"
+            >
               ENROLL NOW
             </a>
           </div>
@@ -556,7 +578,10 @@ export const App: React.FC = () => {
               Congratulations to our community UI designers for creating
               stunning space visualization interfaces.
             </p>
-            <a href="#enroll" className="text-xs font-semibold text-cyan-400 hover:underline">
+            <a
+              href="#enroll"
+              className="text-xs font-semibold text-cyan-400 hover:underline"
+            >
               ENROLL NOW
             </a>
           </div>
@@ -575,7 +600,10 @@ export const App: React.FC = () => {
       </section>
 
       {/* Footer & Subscription Section */}
-      <section id="blog" className="py-20 px-6 max-w-4xl mx-auto text-center w-full border-t border-purple-900/30 relative z-10">
+      <section
+        id="blog"
+        className="py-20 px-6 max-w-4xl mx-auto text-center w-full border-t border-purple-900/30 relative z-10"
+      >
         <h2 className="text-2xl md:text-3xl font-serif mb-3 tracking-wider">
           STAY INFORMED
         </h2>
@@ -622,7 +650,9 @@ export const App: React.FC = () => {
             <span className="font-serif font-bold text-base tracking-wider shine-text">
               Skill Activation Network
             </span>
-            <p>© {new Date().getFullYear()} SAN Co., Ltd. All rights reserved.</p>
+            <p>
+              © {new Date().getFullYear()} SAN Co., Ltd. All rights reserved.
+            </p>
           </div>
 
           <div className="flex gap-6 text-slate-400">
