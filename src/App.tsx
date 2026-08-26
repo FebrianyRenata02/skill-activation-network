@@ -754,7 +754,7 @@ export const App: React.FC = () => {
               <span className="font-bold tracking-widest font-serif shine-text text-sm">
                 Skill Activation Network
               </span>
-              <span>© 2026 SAN Co., Ltd. All rights reserved.</span>
+              <span>© 2026 SAN Co. Ltd. All rights reserved.</span>
             </div>
             <div className="flex gap-4">
               <a
