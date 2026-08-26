@@ -395,7 +395,6 @@ export const App: React.FC = () => {
             >
               Fasilitas
             </a>
-            
             <a
               href="#team-work"
               onClick={() => setIsMobileMenuOpen(false)}
@@ -589,7 +588,6 @@ export const App: React.FC = () => {
             </div>
           </div>
         </section>
-
 
         {/* Team Work Section */}
         <section
