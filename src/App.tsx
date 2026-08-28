@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 
 interface Fasilitas {
   id: string;
@@ -30,7 +30,7 @@ const FASILITAS_DATA: Fasilitas[] = [
     description:
       "Ruang kolaborasi terbuka dan komunitas aktif untuk saling berdiskusi, berbagi wawasan, dan membangun relasi profesional.",
     image:
-      "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=600&auto=format&fit=crop&q=80",
   },
   {
     id: "company",
@@ -39,7 +39,7 @@ const FASILITAS_DATA: Fasilitas[] = [
     description:
       "Fasilitas pembelajaran modern berstandar industri, proyek interaktif, dan materi kurikulum yang selalu diperbarui.",
     image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&auto=format&fit=crop&q=80",
     externalLink: "https://san-global-digital.vercel.app/",
   },
   {
@@ -49,7 +49,7 @@ const FASILITAS_DATA: Fasilitas[] = [
     description:
       "Co-working space yang nyaman, tenang, dan kondusif untuk mendukung produktivitas dalam menyelesaikan proyek maupun tugas & kerjaan harian.",
     image:
-      "https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=600&auto=format&fit=crop&q=80",
   },
   {
     id: "learning-facilities",
@@ -68,7 +68,7 @@ const FASILITAS_DATA: Fasilitas[] = [
     description:
       "Library atau perpustakaan digital wadah bagi siswa untuk merintis dan belajar.",
     image:
-      "https://images.unsplash.com/photo-1614728423169-3f65fd722b7e?w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1614728423169-3f65fd722b7e?w=600&auto=format&fit=crop&q=80",
   },
 ];
 
@@ -103,30 +103,129 @@ const MISSIONS_DATA: Mission[] = [
     title: "Artemis II Launch",
     date: "Jan 1, 2025",
     patchUrl:
-      "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=100&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=100&auto=format&fit=crop&q=70",
   },
   {
     id: "2",
     title: "Europa Clipper Probe",
     date: "Apr 2, 2025",
     patchUrl:
-      "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=100&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=100&auto=format&fit=crop&q=70",
   },
   {
     id: "3",
     title: "Saturn Moon Mission",
     date: "Jun 5, 2025",
     patchUrl:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=100&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=100&auto=format&fit=crop&q=70",
   },
   {
     id: "4",
     title: "Mars Surface Rover",
     date: "Oct 3, 2025",
     patchUrl:
-      "https://images.unsplash.com/photo-1614728423169-3f65fd722b7e?w=100&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1614728423169-3f65fd722b7e?w=100&auto=format&fit=crop&q=70",
   },
 ];
+
+// Komponen Background Canvas Jaringan Ungu
+const NetworkBackground: React.FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    const handleResize = () => {
+      if (!canvas) return;
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    const particleCount = Math.floor((width * height) / 10000);
+    const particles: {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      radius: number;
+    }[] = [];
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: (Math.random() - 0.5) * 0.8,
+        radius: Math.random() * 1.55 + 1.25,
+      });
+    }
+
+    const render = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 160) {
+            const alpha = (1 - dist / 160) * 0.45;
+            ctx.strokeStyle = `rgba(192, 132, 252, ${alpha})`;
+            ctx.lineWidth = 1.25;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+
+        ctx.fillStyle = "rgba(216, 180, 254, 0.95)";
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 pointer-events-none z-0"
+      style={{
+        background:
+          "radial-gradient(circle at 50% 30%, #15092a 0%, #080415 60%, #05030d 100%)",
+      }}
+    />
+  );
+};
 
 export const App: React.FC = () => {
   const [activeFasilitasIndex, setActiveFasilitasIndex] = useState<number>(0);
@@ -170,7 +269,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#070512] text-slate-100 flex flex-col justify-between selection:bg-purple-500 selection:text-white relative overflow-x-clip font-sans">
+    <div className="min-h-screen text-slate-100 flex flex-col justify-between selection:bg-purple-500 selection:text-white relative overflow-x-clip font-sans">
       <style>{`
         html {
           scroll-behavior: smooth;
@@ -183,22 +282,17 @@ export const App: React.FC = () => {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
         }
-        @keyframes cosmicPulse {
-          0%, 100% { transform: scale(1); opacity: 0.85; }
-          50% { transform: scale(1.04); opacity: 1; }
-        }
         @keyframes shine {
           0% { background-position: -200% center; }
           100% { background-position: 200% center; }
         }
         .animate-galaxy-spin {
-          animation: galaxySpin 120s linear infinite;
+          animation: galaxySpin 150s linear infinite;
+          will-change: transform;
         }
         .animate-reverse-spin {
-          animation: reverseGalaxySpin 150s linear infinite;
-        }
-        .animate-cosmic-pulse {
-          animation: cosmicPulse 18s ease-in-out infinite;
+          animation: reverseGalaxySpin 180s linear infinite;
+          will-change: transform;
         }
         .shine-text {
           background: linear-gradient(
@@ -215,8 +309,8 @@ export const App: React.FC = () => {
         }
       `}</style>
 
-      {/* Background Global */}
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-950/40 via-[#0a071d] to-[#04020a] pointer-events-none z-0" />
+      {/* Background Jaringan Ungu (Canvas Node & Lines) */}
+      <NetworkBackground />
 
       {/* Floating WhatsApp Button */}
       <a
@@ -229,12 +323,15 @@ export const App: React.FC = () => {
         <img
           src="https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/whatsapp-icon.png"
           alt="WhatsApp Icon"
+          width="56"
+          height="56"
           className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
+          loading="lazy"
         />
       </a>
 
       {/* Header Sticky Navbar */}
-      <header className="sticky top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#0b0818]/90 border-b border-purple-900/40 w-full shadow-lg">
+      <header className="sticky top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0b0818]/75 border-b border-purple-900/40 w-full shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
           <div className="flex items-center gap-2 overflow-hidden">
             <span className="text-lg sm:text-xl md:text-2xl font-bold tracking-widest font-serif shine-text truncate">
@@ -270,7 +367,7 @@ export const App: React.FC = () => {
               </div>
 
               {isServicesOpen && (
-                <div className="absolute top-full left-0 mt-3 w-56 bg-[#0b0818]/95 backdrop-blur-xl border border-purple-900/50 rounded-2xl shadow-2xl py-2 z-50 flex flex-col">
+                <div className="absolute top-full left-0 mt-3 w-56 bg-[#0b0818]/95 backdrop-blur-md border border-purple-900/50 rounded-2xl shadow-2xl py-2 z-50 flex flex-col">
                   {FASILITAS_DATA.map((fasilitas, idx) => (
                     <button
                       key={fasilitas.id}
@@ -299,7 +396,7 @@ export const App: React.FC = () => {
           </nav>
 
           <div className="flex items-center gap-2">
-            <button className="hidden sm:block bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-6 py-2 rounded-full font-bold text-sm transition-all duration-500 shadow-[0_0_20px_rgba(34,211,238,0.4)]">
+            <button className="hidden sm:block bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-6 py-2 rounded-full font-bold text-sm transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.4)]">
               Enroll
             </button>
 
@@ -337,7 +434,7 @@ export const App: React.FC = () => {
 
         {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-[#0b0818]/95 backdrop-blur-2xl border-b border-purple-900/50 px-4 py-4 flex flex-col gap-3 text-center">
+          <div className="lg:hidden bg-[#0b0818]/95 backdrop-blur-md border-b border-purple-900/50 px-4 py-4 flex flex-col gap-3 text-center">
             <a
               href="#planets"
               onClick={() => setIsMobileMenuOpen(false)}
@@ -373,7 +470,7 @@ export const App: React.FC = () => {
           id="planets"
           className="relative min-h-[calc(100vh-80px)] py-8 sm:py-12 flex flex-col justify-between items-center px-4 sm:px-6 max-w-7xl mx-auto w-full text-center"
         >
-          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[500px] md:w-[600px] h-[300px] sm:h-[500px] md:h-[600px] bg-purple-600/15 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none" />
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-purple-600/15 rounded-full blur-[100px] pointer-events-none" />
 
           <div className="text-left md:text-center max-w-3xl mx-auto z-10 mt-2 sm:mt-4">
             <p className="text-cyan-400 tracking-[0.2em] sm:tracking-[0.3em] text-[10px] sm:text-xs font-semibold mb-2 uppercase">
@@ -389,14 +486,14 @@ export const App: React.FC = () => {
             <div className="mt-4 sm:mt-6 flex items-center justify-start md:justify-center gap-4">
               <button
                 onClick={handleFasilitasRedirect}
-                className="bg-slate-100 text-slate-950 hover:bg-cyan-400 transition-all duration-500 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-bold text-xs tracking-wider shadow-[0_0_25px_rgba(255,255,255,0.3)]"
+                className="bg-slate-100 text-slate-950 hover:bg-cyan-400 transition-all duration-300 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-bold text-xs tracking-wider shadow-[0_0_20px_rgba(255,255,255,0.2)]"
               >
                 GET STARTED
               </button>
             </div>
           </div>
 
-          {/* Banner Navigasi Central */}
+          {/* Banner Navigasi Central (Border Luar & Garis Tepi Logo Dihilangkan Total) */}
           <div className="relative w-full my-6 flex flex-col md:flex-row items-center justify-between z-10 px-2 gap-4">
             <button
               onClick={handlePrevFasilitas}
@@ -410,29 +507,41 @@ export const App: React.FC = () => {
 
             <div
               onClick={handleFasilitasRedirect}
-              className={`relative w-48 h-48 sm:w-72 sm:h-72 md:w-[380px] md:h-[380px] lg:w-[420px] lg:h-[420px] flex items-center justify-center group select-none transition-all duration-700 ${
+              className={`relative w-48 h-48 sm:w-72 sm:h-72 md:w-[380px] md:h-[380px] lg:w-[420px] lg:h-[420px] flex items-center justify-center group select-none transition-all duration-500 ${
                 currentFasilitas.externalLink ? "cursor-pointer" : ""
               }`}
             >
-              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500 via-fuchsia-600 to-purple-600 opacity-75 blur-2xl group-hover:opacity-100 transition-opacity duration-1000 animate-cosmic-pulse" />
-              <div className="absolute -inset-3 rounded-full p-[3px] bg-[conic-gradient(from_0deg,#06b6d4,#8b5cf6,#ec4899,#3b82f6,#06b6d4)] animate-galaxy-spin opacity-90 shadow-[0_0_35px_rgba(139,92,246,0.7)]" />
-              <div className="absolute -inset-1.5 rounded-full border border-dashed border-cyan-300/50 animate-reverse-spin opacity-80" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500 via-fuchsia-600 to-purple-600 opacity-50 blur-xl pointer-events-none" />
+              <div className="absolute -inset-3 rounded-full p-[3px] bg-[conic-gradient(from_0deg,#06b6d4,#8b5cf6,#ec4899,#3b82f6,#06b6d4)] animate-galaxy-spin opacity-70" />
+              <div className="absolute -inset-1.5 rounded-full border border-dashed border-cyan-300/30 animate-reverse-spin opacity-50" />
 
-              <div className="relative w-full h-full rounded-full aspect-square bg-[#080415] flex items-center justify-center shadow-[inset_0_0_40px_rgba(147,51,234,0.7),0_0_30px_rgba(34,211,238,0.5)] border border-cyan-400/50 overflow-hidden">
+              <div className="relative w-full h-full rounded-full aspect-square bg-[#080415] flex items-center justify-center overflow-hidden shadow-xl border-0 outline-none ring-0">
                 <img
-                  src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?q=80&w=1548&auto=format&fit=crop"
+                  src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=500&auto=format&fit=crop&q=80"
                   alt="Fasilitas Background"
-                  className="absolute inset-0 w-full h-full object-cover rounded-full aspect-square transition-transform duration-1000 group-hover:scale-110 opacity-95"
+                  width="420"
+                  height="420"
+                  className="absolute inset-0 w-full h-full object-cover rounded-full aspect-square opacity-90 border-0 outline-none"
+                  fetchPriority="high"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30 pointer-events-none rounded-full" />
-                <div className="relative z-10 w-[85%] h-[85%] rounded-full aspect-square bg-purple-950 shadow-[0_0_40px_rgba(255,255,255,0.95),0_0_60px_rgba(34,211,238,0.85)] flex items-center justify-center border-2 border-purple-300/80 transition-transform duration-700 group-hover:scale-105 overflow-hidden">
+                <div className="absolute inset-0 bg-black/30 pointer-events-none rounded-full border-0 outline-none" />
+
+                {/* LOGO TENGAH (Tanpa Garis Tepi/Border Sama Sekali) */}
+                <div className="relative z-10 w-[92%] h-[92%] rounded-full aspect-square bg-transparent flex items-center justify-center overflow-hidden border-0 outline-none ring-0 shadow-none">
                   <img
                     src="https://raw.githubusercontent.com/FebrianyRenata02/san-academy-bootcamp/refs/heads/main/src/assets/Untitled%20(33).png"
                     alt="SAN Academy Bootcamp Logo"
-                    className="w-full h-full object-cover rounded-full aspect-square"
+                    width="380"
+                    height="380"
+                    className="w-full h-full object-cover rounded-full aspect-square border-0 outline-none ring-0 shadow-none"
+                    style={{
+                      border: "none",
+                      outline: "none",
+                      boxShadow: "none",
+                    }}
+                    fetchPriority="high"
                   />
                 </div>
-                <div className="absolute inset-0 rounded-full border border-cyan-300/40 shadow-[inset_0_0_25px_rgba(0,0,0,0.7)] pointer-events-none z-20" />
               </div>
             </div>
 
@@ -466,13 +575,13 @@ export const App: React.FC = () => {
           <div className="z-10 text-center flex flex-col items-center gap-2 mt-2">
             <button
               onClick={handleFasilitasRedirect}
-              className="bg-slate-100 hover:bg-cyan-400 text-slate-950 px-6 py-2 rounded-full font-bold text-xs transition-colors duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+              className="bg-slate-100 hover:bg-cyan-400 text-slate-950 px-6 py-2 rounded-full font-bold text-xs transition-colors duration-300 shadow-[0_0_15px_rgba(255,255,255,0.15)]"
             >
               EXPLORE DEEP SPACE
             </button>
 
-            <div className="w-6 h-10 rounded-full border-2 border-slate-400/60 flex items-start justify-center p-1 mt-2 animate-bounce shadow-[0_0_12px_rgba(34,211,238,0.4)]">
-              <div className="w-1.5 h-3.5 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-full animate-pulse" />
+            <div className="w-6 h-10 rounded-full border-2 border-slate-400/60 flex items-start justify-center p-1 mt-2 animate-bounce">
+              <div className="w-1.5 h-3.5 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-full" />
             </div>
           </div>
         </section>
@@ -487,7 +596,7 @@ export const App: React.FC = () => {
             {FEATURED_FASILITAS.map((item, index) => (
               <div
                 key={index}
-                className="bg-purple-950/20 border border-purple-800/30 rounded-2xl p-6 text-left md:text-center hover:border-cyan-500/50 transition-all duration-500 hover:-translate-y-1 group cursor-pointer backdrop-blur-sm"
+                className="bg-purple-950/30 border border-purple-800/40 rounded-2xl p-6 text-left md:text-center hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-1 group cursor-pointer backdrop-blur-md shadow-lg"
                 onClick={() => {
                   if (item.externalLink) {
                     window.location.href = item.externalLink;
@@ -500,11 +609,13 @@ export const App: React.FC = () => {
                 }}
               >
                 <div className="relative w-20 h-20 mb-4 md:mx-auto">
-                  <div className="absolute inset-0 rounded-full bg-cyan-500/20 blur-md group-hover:bg-cyan-400/40 transition-all duration-500" />
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="relative w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-500 border border-purple-500/30"
+                    width="80"
+                    height="80"
+                    className="relative w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-300 border border-purple-500/30"
+                    loading="lazy"
                   />
                 </div>
                 <h3 className="font-serif tracking-wider text-base mb-1 text-slate-200 group-hover:text-cyan-300 transition-colors duration-300">
@@ -514,14 +625,16 @@ export const App: React.FC = () => {
             ))}
           </div>
 
-          <div className="mt-8 md:mt-12 bg-purple-950/30 border border-purple-800/30 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8 backdrop-blur-md">
+          <div className="mt-8 md:mt-12 bg-purple-950/40 border border-purple-800/40 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8 backdrop-blur-md shadow-xl">
             <div className="relative shrink-0">
-              <div className="absolute inset-0 rounded-full bg-purple-600/30 blur-xl animate-pulse" />
-              <div className="relative w-36 h-36 sm:w-48 sm:h-48 rounded-full bg-purple-950 border border-purple-500/40 shadow-[0_0_30px_rgba(168,85,247,0.3)] flex items-center justify-center overflow-hidden p-2">
+              <div className="relative w-36 h-36 sm:w-48 sm:h-48 rounded-full bg-purple-950 border border-purple-500/40 flex items-center justify-center overflow-hidden p-2">
                 <img
                   src="https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/Untitled%20(33).png"
                   alt="Skill Activation Network Logo"
+                  width="192"
+                  height="192"
                   className="w-full h-full object-cover rounded-full"
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -554,11 +667,14 @@ export const App: React.FC = () => {
                 key={mission.id}
                 className="flex flex-col items-start md:items-center text-left md:text-center group"
               >
-                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-purple-900/30 border border-purple-500/40 flex items-center justify-center p-2 mb-3 sm:mb-4 group-hover:border-cyan-400 transition-colors duration-300 shadow-[0_0_20px_rgba(168,85,247,0.2)]">
+                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-purple-950/50 border border-purple-500/40 flex items-center justify-center p-2 mb-3 sm:mb-4 group-hover:border-cyan-400 transition-colors duration-300">
                   <img
                     src={mission.patchUrl}
                     alt={mission.title}
+                    width="80"
+                    height="80"
                     className="w-full h-full object-cover rounded-full"
+                    loading="lazy"
                   />
                 </div>
                 <span className="text-xs text-cyan-400 font-mono mb-1">
@@ -577,7 +693,7 @@ export const App: React.FC = () => {
           id="blog"
           className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-900/30"
         >
-          <div className="bg-gradient-to-r from-purple-950/40 via-purple-900/20 to-cyan-950/30 border border-purple-800/30 rounded-3xl p-8 sm:p-12 backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="bg-gradient-to-r from-purple-950/60 via-purple-900/30 to-cyan-950/40 border border-purple-800/40 rounded-3xl p-8 sm:p-12 backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
             <div className="text-left max-w-xl">
               <h3 className="text-xl sm:text-2xl font-serif text-slate-100 mb-2">
                 Join our newsletter stream
@@ -598,11 +714,11 @@ export const App: React.FC = () => {
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
                 required
-                className="bg-[#0b0818] border border-purple-800/60 rounded-full px-5 py-3 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400 w-full sm:w-72"
+                className="bg-[#0b0818]/90 border border-purple-800/60 rounded-full px-5 py-3 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400 w-full sm:w-72"
               />
               <button
                 type="submit"
-                className="bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-6 py-3 rounded-full font-bold text-xs transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.3)] shrink-0"
+                className="bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-6 py-3 rounded-full font-bold text-xs transition-all duration-300 shadow-[0_0_15px_rgba(34,211,238,0.2)] shrink-0"
               >
                 SUBSCRIBE
               </button>
@@ -610,7 +726,7 @@ export const App: React.FC = () => {
           </div>
 
           {subscribed && (
-            <div className="mt-4 text-center text-cyan-400 text-xs font-medium animate-pulse">
+            <div className="mt-4 text-center text-cyan-400 text-xs font-medium">
               Thank you for subscribing to our network stream!
             </div>
           )}
@@ -618,7 +734,7 @@ export const App: React.FC = () => {
       </main>
 
       {/* Footer Bottom */}
-      <footer className="w-full border-t border-purple-900/40 py-6 px-4 sm:px-6 text-xs z-10 bg-[#05030d]">
+      <footer className="w-full border-t border-purple-900/40 py-6 px-4 sm:px-6 text-xs z-10 bg-[#05030d]/90 backdrop-blur-md">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <span className="font-serif tracking-widest text-slate-200 font-semibold shine-text">
