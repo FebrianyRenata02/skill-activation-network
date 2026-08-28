@@ -100,35 +100,35 @@ const FEATURED_FASILITAS: FeaturedFasilitas[] = [
 const MISSIONS_DATA: Mission[] = [
   {
     id: "1",
-    title: "Artemis II Launch",
-    date: "Jan 1, 2025",
+    title: "Febriany Renata",
+    date: "Founder",
     patchUrl:
       "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=100&auto=format&fit=crop&q=70",
   },
   {
     id: "2",
-    title: "Europa Clipper Probe",
-    date: "Apr 2, 2025",
+    title: "lorem",
+    date: "Admin",
     patchUrl:
       "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=100&auto=format&fit=crop&q=70",
   },
   {
     id: "3",
-    title: "Saturn Moon Mission",
-    date: "Jun 5, 2025",
+    title: "lorem",
+    date: "Moderator",
     patchUrl:
       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=100&auto=format&fit=crop&q=70",
   },
   {
     id: "4",
-    title: "Mars Surface Rover",
-    date: "Oct 3, 2025",
+    title: "lorem",
+    date: "Moderator",
     patchUrl:
       "https://images.unsplash.com/photo-1614728423169-3f65fd722b7e?w=100&auto=format&fit=crop&q=70",
   },
 ];
 
-// Komponen Background Canvas Jaringan Ungu
+// Komponen Background Canvas Jaringan Ungu (Sangat Muda & Lembut)
 const NetworkBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -179,9 +179,9 @@ const NetworkBackground: React.FC = () => {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < 160) {
-            const alpha = (1 - dist / 160) * 0.45;
-            ctx.strokeStyle = `rgba(192, 132, 252, ${alpha})`;
-            ctx.lineWidth = 1.25;
+            const alpha = (1 - dist / 160) * 0.25;
+            ctx.strokeStyle = `rgba(216, 180, 254, ${alpha})`;
+            ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -198,7 +198,7 @@ const NetworkBackground: React.FC = () => {
         if (p.x < 0 || p.x > width) p.vx *= -1;
         if (p.y < 0 || p.y > height) p.vy *= -1;
 
-        ctx.fillStyle = "rgba(216, 180, 254, 0.95)";
+        ctx.fillStyle = "rgba(233, 213, 255, 0.7)";
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fill();
@@ -221,7 +221,7 @@ const NetworkBackground: React.FC = () => {
       className="fixed inset-0 pointer-events-none z-0"
       style={{
         background:
-          "radial-gradient(circle at 50% 30%, #15092a 0%, #080415 60%, #05030d 100%)",
+          "radial-gradient(circle at 50% 30%, #1f103d 0%, #0d061f 60%, #070312 100%)",
       }}
     />
   );
@@ -269,7 +269,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen text-slate-100 flex flex-col justify-between selection:bg-purple-500 selection:text-white relative overflow-x-clip font-sans">
+    <div className="min-h-screen text-slate-100 flex flex-col justify-between selection:bg-purple-400 selection:text-slate-950 relative overflow-x-clip font-sans">
       <style>{`
         html {
           scroll-behavior: smooth;
@@ -297,9 +297,9 @@ export const App: React.FC = () => {
         .shine-text {
           background: linear-gradient(
             110deg,
-            #22d3ee 30%,
+            #67e8f9 30%,
             #ffffff 50%,
-            #8b5cf6 70%
+            #c084fc 70%
           );
           background-size: 200% auto;
           color: transparent;
@@ -309,7 +309,7 @@ export const App: React.FC = () => {
         }
       `}</style>
 
-      {/* Background Jaringan Ungu (Canvas Node & Lines) */}
+      {/* Background Jaringan Ungu */}
       <NetworkBackground />
 
       {/* Floating WhatsApp Button */}
@@ -331,7 +331,7 @@ export const App: React.FC = () => {
       </a>
 
       {/* Header Sticky Navbar */}
-      <header className="sticky top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0b0818]/75 border-b border-purple-900/40 w-full shadow-lg">
+      <header className="sticky top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0d061f]/80 border-b border-purple-500/20 w-full shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
           <div className="flex items-center gap-2 overflow-hidden">
             <span className="text-lg sm:text-xl md:text-2xl font-bold tracking-widest font-serif shine-text truncate">
@@ -344,16 +344,16 @@ export const App: React.FC = () => {
             <div className="relative flex items-center gap-3">
               <a
                 href="#planets"
-                className="hover:text-cyan-400 transition-colors"
+                className="hover:text-cyan-300 transition-colors"
               >
                 Fasilitas
               </a>
-              <div className="flex items-center gap-1.5 pl-2 border-l border-purple-800/50">
+              <div className="flex items-center gap-1.5 pl-2 border-l border-purple-500/30">
                 <button
                   onClick={() => setIsServicesOpen(!isServicesOpen)}
-                  className="flex items-center gap-1 hover:text-cyan-400 transition-colors focus:outline-none"
+                  className="flex items-center gap-1 hover:text-cyan-300 transition-colors focus:outline-none"
                 >
-                  <span className="text-[10px] text-slate-500 uppercase tracking-widest">
+                  <span className="text-[10px] text-slate-400 uppercase tracking-widest">
                     SEE MORE
                   </span>
                   <span
@@ -367,7 +367,7 @@ export const App: React.FC = () => {
               </div>
 
               {isServicesOpen && (
-                <div className="absolute top-full left-0 mt-3 w-56 bg-[#0b0818]/95 backdrop-blur-md border border-purple-900/50 rounded-2xl shadow-2xl py-2 z-50 flex flex-col">
+                <div className="absolute top-full left-0 mt-3 w-56 bg-[#13092b]/95 backdrop-blur-md border border-purple-500/30 rounded-2xl shadow-2xl py-2 z-50 flex flex-col">
                   {FASILITAS_DATA.map((fasilitas, idx) => (
                     <button
                       key={fasilitas.id}
@@ -375,7 +375,7 @@ export const App: React.FC = () => {
                         setActiveFasilitasIndex(idx);
                         setIsServicesOpen(false);
                       }}
-                      className="text-left px-4 py-2.5 text-xs text-slate-300 hover:text-cyan-400 hover:bg-purple-950/40 transition-colors"
+                      className="text-left px-4 py-2.5 text-xs text-slate-300 hover:text-cyan-300 hover:bg-purple-900/30 transition-colors"
                     >
                       {fasilitas.name}
                     </button>
@@ -386,17 +386,17 @@ export const App: React.FC = () => {
 
             <a
               href="#team-work"
-              className="hover:text-cyan-400 transition-colors"
+              className="hover:text-cyan-300 transition-colors"
             >
               Team Work
             </a>
-            <a href="#blog" className="hover:text-cyan-400 transition-colors">
+            <a href="#blog" className="hover:text-cyan-300 transition-colors">
               Blog
             </a>
           </nav>
 
           <div className="flex items-center gap-2">
-            <button className="hidden sm:block bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-6 py-2 rounded-full font-bold text-sm transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.4)]">
+            <button className="hidden sm:block bg-gradient-to-r from-cyan-300 to-blue-500 hover:from-cyan-200 hover:to-blue-400 text-slate-950 px-6 py-2 rounded-full font-bold text-sm transition-all duration-300 shadow-[0_0_20px_rgba(103,232,249,0.3)]">
               Enroll
             </button>
 
@@ -434,29 +434,29 @@ export const App: React.FC = () => {
 
         {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-[#0b0818]/95 backdrop-blur-md border-b border-purple-900/50 px-4 py-4 flex flex-col gap-3 text-center">
+          <div className="lg:hidden bg-[#13092b]/95 backdrop-blur-md border-b border-purple-500/30 px-4 py-4 flex flex-col gap-3 text-center">
             <a
               href="#planets"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-slate-300 hover:text-cyan-400 text-sm py-1 font-medium"
+              className="text-slate-300 hover:text-cyan-300 text-sm py-1 font-medium"
             >
               Fasilitas
             </a>
             <a
               href="#team-work"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-slate-300 hover:text-cyan-400 text-sm py-1 font-medium"
+              className="text-slate-300 hover:text-cyan-300 text-sm py-1 font-medium"
             >
               Team Work
             </a>
             <a
               href="#blog"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-slate-300 hover:text-cyan-400 text-sm py-1 font-medium"
+              className="text-slate-300 hover:text-cyan-300 text-sm py-1 font-medium"
             >
               Blog
             </a>
-            <button className="sm:hidden bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 px-4 py-2 rounded-full font-bold text-xs w-full mt-1">
+            <button className="sm:hidden bg-gradient-to-r from-cyan-300 to-blue-500 text-slate-950 px-4 py-2 rounded-full font-bold text-xs w-full mt-1">
               Enroll
             </button>
           </div>
@@ -470,34 +470,34 @@ export const App: React.FC = () => {
           id="planets"
           className="relative min-h-[calc(100vh-80px)] py-8 sm:py-12 flex flex-col justify-between items-center px-4 sm:px-6 max-w-7xl mx-auto w-full text-center"
         >
-          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-purple-600/15 rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-purple-500/10 rounded-full blur-[120px] pointer-events-none" />
 
           <div className="text-left md:text-center max-w-3xl mx-auto z-10 mt-2 sm:mt-4">
-            <p className="text-cyan-400 tracking-[0.2em] sm:tracking-[0.3em] text-[10px] sm:text-xs font-semibold mb-2 uppercase">
+            <p className="text-cyan-300 tracking-[0.2em] sm:tracking-[0.3em] text-[10px] sm:text-xs font-semibold mb-2 uppercase">
               {currentFasilitas.subtitle}
             </p>
-            <h1 className="text-3xl sm:text-6xl md:text-8xl font-serif tracking-wider font-normal mb-3 sm:mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-400">
+            <h1 className="text-3xl sm:text-6xl md:text-8xl font-serif tracking-wider font-normal mb-3 sm:mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-300">
               {currentFasilitas.name}
             </h1>
-            <p className="text-slate-400 text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto min-h-[50px] px-2">
+            <p className="text-slate-300 text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto min-h-[50px] px-2 font-light">
               {currentFasilitas.description}
             </p>
 
             <div className="mt-4 sm:mt-6 flex items-center justify-start md:justify-center gap-4">
               <button
                 onClick={handleFasilitasRedirect}
-                className="bg-slate-100 text-slate-950 hover:bg-cyan-400 transition-all duration-300 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-bold text-xs tracking-wider shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                className="bg-slate-100 text-slate-950 hover:bg-cyan-300 transition-all duration-300 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-bold text-xs tracking-wider shadow-[0_0_20px_rgba(255,255,255,0.15)]"
               >
                 GET STARTED
               </button>
             </div>
           </div>
 
-          {/* Banner Navigasi Central (Border Luar & Garis Tepi Logo Dihilangkan Total) */}
+          {/* Banner Navigasi Central (Garis Tepi / Border Lingkaran Besar Dihilangkan Total) */}
           <div className="relative w-full my-6 flex flex-col md:flex-row items-center justify-between z-10 px-2 gap-4">
             <button
               onClick={handlePrevFasilitas}
-              className="hidden md:flex items-center gap-2 text-xs font-semibold tracking-widest text-slate-400 hover:text-cyan-400 transition-colors uppercase p-4 group select-none text-left"
+              className="hidden md:flex items-center gap-2 text-xs font-semibold tracking-widest text-slate-400 hover:text-cyan-300 transition-colors uppercase p-4 group select-none text-left"
             >
               <span className="group-hover:-translate-x-1 transition-transform duration-300">
                 ‹
@@ -507,24 +507,30 @@ export const App: React.FC = () => {
 
             <div
               onClick={handleFasilitasRedirect}
-              className={`relative w-48 h-48 sm:w-72 sm:h-72 md:w-[380px] md:h-[380px] lg:w-[420px] lg:h-[420px] flex items-center justify-center group select-none transition-all duration-500 ${
+              className={`relative w-48 h-48 sm:w-72 sm:h-72 md:w-[380px] md:h-[380px] lg:w-[420px] lg:h-[420px] flex items-center justify-center group select-none transition-all duration-500 border-0 outline-none ring-0 ${
                 currentFasilitas.externalLink ? "cursor-pointer" : ""
               }`}
             >
-              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500 via-fuchsia-600 to-purple-600 opacity-50 blur-xl pointer-events-none" />
-              <div className="absolute -inset-3 rounded-full p-[3px] bg-[conic-gradient(from_0deg,#06b6d4,#8b5cf6,#ec4899,#3b82f6,#06b6d4)] animate-galaxy-spin opacity-70" />
-              <div className="absolute -inset-1.5 rounded-full border border-dashed border-cyan-300/30 animate-reverse-spin opacity-50" />
+              {/* Efek Cahaya Latar yang Lebih Soft & Muda */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-400/30 via-fuchsia-400/30 to-purple-400/30 opacity-40 blur-2xl pointer-events-none" />
 
-              <div className="relative w-full h-full rounded-full aspect-square bg-[#080415] flex items-center justify-center overflow-hidden shadow-xl border-0 outline-none ring-0">
+              {/* Garis Tebal Berputar (Warna Diperhalus/Muda) */}
+              <div className="absolute -inset-3 rounded-full p-[3px] bg-[conic-gradient(from_0deg,#22d3ee,#c084fc,#f472b6,#60a5fa,#22d3ee)] animate-galaxy-spin opacity-50 border-0 outline-none" />
+
+              {/* Garis Putus-putus Orbit */}
+              <div className="absolute -inset-1.5 rounded-full border border-dashed border-cyan-200/20 animate-reverse-spin opacity-40 border-0 outline-none" />
+
+              {/* Container Lingkaran Utama (Border Dihilangkan Bersih) */}
+              <div className="relative w-full h-full rounded-full aspect-square bg-[#0d061f] flex items-center justify-center overflow-hidden shadow-2xl border-0 outline-none ring-0">
                 <img
                   src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=500&auto=format&fit=crop&q=80"
                   alt="Fasilitas Background"
                   width="420"
                   height="420"
-                  className="absolute inset-0 w-full h-full object-cover rounded-full aspect-square opacity-90 border-0 outline-none"
+                  className="absolute inset-0 w-full h-full object-cover rounded-full aspect-square opacity-80 border-0 outline-none"
                   fetchPriority="high"
                 />
-                <div className="absolute inset-0 bg-black/30 pointer-events-none rounded-full border-0 outline-none" />
+                <div className="absolute inset-0 bg-black/20 pointer-events-none rounded-full border-0 outline-none" />
 
                 {/* LOGO TENGAH (Tanpa Garis Tepi/Border Sama Sekali) */}
                 <div className="relative z-10 w-[92%] h-[92%] rounded-full aspect-square bg-transparent flex items-center justify-center overflow-hidden border-0 outline-none ring-0 shadow-none">
@@ -549,13 +555,13 @@ export const App: React.FC = () => {
             <div className="flex md:hidden items-center gap-4 mt-2">
               <button
                 onClick={handlePrevFasilitas}
-                className="text-xs font-semibold tracking-wider text-slate-300 hover:text-cyan-400 bg-purple-950/60 px-4 py-2 rounded-full border border-purple-800/50"
+                className="text-xs font-semibold tracking-wider text-slate-300 hover:text-cyan-300 bg-purple-950/40 px-4 py-2 rounded-full border border-purple-500/30"
               >
                 ‹ {prevFasilitasName}
               </button>
               <button
                 onClick={handleNextFasilitas}
-                className="text-xs font-semibold tracking-wider text-slate-300 hover:text-cyan-400 bg-purple-950/60 px-4 py-2 rounded-full border border-purple-800/50"
+                className="text-xs font-semibold tracking-wider text-slate-300 hover:text-cyan-300 bg-purple-950/40 px-4 py-2 rounded-full border border-purple-500/30"
               >
                 {nextFasilitasName} ›
               </button>
@@ -563,7 +569,7 @@ export const App: React.FC = () => {
 
             <button
               onClick={handleNextFasilitas}
-              className="hidden md:flex items-center gap-2 text-xs font-semibold tracking-widest text-slate-400 hover:text-cyan-400 transition-colors uppercase p-4 group select-none text-right"
+              className="hidden md:flex items-center gap-2 text-xs font-semibold tracking-widest text-slate-400 hover:text-cyan-300 transition-colors uppercase p-4 group select-none text-right"
             >
               {nextFasilitasName}{" "}
               <span className="group-hover:translate-x-1 transition-transform duration-300">
@@ -575,20 +581,20 @@ export const App: React.FC = () => {
           <div className="z-10 text-center flex flex-col items-center gap-2 mt-2">
             <button
               onClick={handleFasilitasRedirect}
-              className="bg-slate-100 hover:bg-cyan-400 text-slate-950 px-6 py-2 rounded-full font-bold text-xs transition-colors duration-300 shadow-[0_0_15px_rgba(255,255,255,0.15)]"
+              className="bg-slate-100 hover:bg-cyan-300 text-slate-950 px-6 py-2 rounded-full font-bold text-xs transition-colors duration-300 shadow-[0_0_15px_rgba(255,255,255,0.15)]"
             >
               EXPLORE DEEP SPACE
             </button>
 
-            <div className="w-6 h-10 rounded-full border-2 border-slate-400/60 flex items-start justify-center p-1 mt-2 animate-bounce">
-              <div className="w-1.5 h-3.5 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-full" />
+            <div className="w-6 h-10 rounded-full border-2 border-slate-400/40 flex items-start justify-center p-1 mt-2 animate-bounce">
+              <div className="w-1.5 h-3.5 bg-gradient-to-b from-cyan-300 to-blue-400 rounded-full" />
             </div>
           </div>
         </section>
 
         {/* Featured Fasilitas Section */}
-        <section className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-900/30">
-          <h2 className="text-left md:text-center text-xs tracking-[0.3em] font-bold text-cyan-400 mb-8 md:mb-12 uppercase">
+        <section className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-500/20">
+          <h2 className="text-left md:text-center text-xs tracking-[0.3em] font-bold text-cyan-300 mb-8 md:mb-12 uppercase">
             FEATURED FACILITIES
           </h2>
 
@@ -596,7 +602,7 @@ export const App: React.FC = () => {
             {FEATURED_FASILITAS.map((item, index) => (
               <div
                 key={index}
-                className="bg-purple-950/30 border border-purple-800/40 rounded-2xl p-6 text-left md:text-center hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-1 group cursor-pointer backdrop-blur-md shadow-lg"
+                className="bg-purple-950/20 border border-purple-500/25 rounded-2xl p-6 text-left md:text-center hover:border-cyan-400/40 transition-all duration-300 hover:-translate-y-1 group cursor-pointer backdrop-blur-md shadow-lg"
                 onClick={() => {
                   if (item.externalLink) {
                     window.location.href = item.externalLink;
@@ -614,20 +620,20 @@ export const App: React.FC = () => {
                     alt={item.name}
                     width="80"
                     height="80"
-                    className="relative w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-300 border border-purple-500/30"
+                    className="relative w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-300 border border-purple-400/30"
                     loading="lazy"
                   />
                 </div>
-                <h3 className="font-serif tracking-wider text-base mb-1 text-slate-200 group-hover:text-cyan-300 transition-colors duration-300">
+                <h3 className="font-serif tracking-wider text-base mb-1 text-slate-200 group-hover:text-cyan-200 transition-colors duration-300">
                   {item.name}
                 </h3>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 md:mt-12 bg-purple-950/40 border border-purple-800/40 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8 backdrop-blur-md shadow-xl">
+          <div className="mt-8 md:mt-12 bg-purple-950/30 border border-purple-500/25 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8 backdrop-blur-md shadow-xl">
             <div className="relative shrink-0">
-              <div className="relative w-36 h-36 sm:w-48 sm:h-48 rounded-full bg-purple-950 border border-purple-500/40 flex items-center justify-center overflow-hidden p-2">
+              <div className="relative w-36 h-36 sm:w-48 sm:h-48 rounded-full bg-purple-950/50 border border-purple-400/30 flex items-center justify-center overflow-hidden p-2">
                 <img
                   src="https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/Untitled%20(33).png"
                   alt="Skill Activation Network Logo"
@@ -642,7 +648,7 @@ export const App: React.FC = () => {
               <h3 className="text-xl sm:text-2xl font-serif text-slate-100 mb-2">
                 Skill Activation Network
               </h3>
-              <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-xl">
+              <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-xl font-light">
                 Skill Activation Network provides an industry-standard learning
                 environment equipped with workspaces, Co-Working Spaces, Open
                 Courses & Bootcamps, and a complete library to support your
@@ -655,9 +661,9 @@ export const App: React.FC = () => {
         {/* Team Work Section */}
         <section
           id="team-work"
-          className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-900/30"
+          className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-500/20"
         >
-          <h2 className="text-left md:text-center text-xs tracking-[0.3em] font-bold text-cyan-400 mb-8 md:mb-12 uppercase">
+          <h2 className="text-left md:text-center text-xs tracking-[0.3em] font-bold text-cyan-300 mb-8 md:mb-12 uppercase">
             Team Work
           </h2>
 
@@ -667,7 +673,7 @@ export const App: React.FC = () => {
                 key={mission.id}
                 className="flex flex-col items-start md:items-center text-left md:text-center group"
               >
-                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-purple-950/50 border border-purple-500/40 flex items-center justify-center p-2 mb-3 sm:mb-4 group-hover:border-cyan-400 transition-colors duration-300">
+                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-purple-950/40 border border-purple-400/30 flex items-center justify-center p-2 mb-3 sm:mb-4 group-hover:border-cyan-300 transition-colors duration-300">
                   <img
                     src={mission.patchUrl}
                     alt={mission.title}
@@ -677,7 +683,7 @@ export const App: React.FC = () => {
                     loading="lazy"
                   />
                 </div>
-                <span className="text-xs text-cyan-400 font-mono mb-1">
+                <span className="text-xs text-cyan-300 font-mono mb-1">
                   {mission.date}
                 </span>
                 <h4 className="font-semibold text-xs sm:text-sm text-slate-200">
@@ -691,14 +697,14 @@ export const App: React.FC = () => {
         {/* Footer & Subscription Section */}
         <section
           id="blog"
-          className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-900/30"
+          className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-500/20"
         >
-          <div className="bg-gradient-to-r from-purple-950/60 via-purple-900/30 to-cyan-950/40 border border-purple-800/40 rounded-3xl p-8 sm:p-12 backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
+          <div className="bg-gradient-to-r from-purple-950/40 via-purple-900/20 to-cyan-950/30 border border-purple-500/25 rounded-3xl p-8 sm:p-12 backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
             <div className="text-left max-w-xl">
               <h3 className="text-xl sm:text-2xl font-serif text-slate-100 mb-2">
                 Join our newsletter stream
               </h3>
-              <p className="text-slate-400 text-xs sm:text-sm">
+              <p className="text-slate-300 text-xs sm:text-sm font-light">
                 Receive weekly updates regarding courses, space missions, and
                 community achievements.
               </p>
@@ -714,11 +720,11 @@ export const App: React.FC = () => {
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
                 required
-                className="bg-[#0b0818]/90 border border-purple-800/60 rounded-full px-5 py-3 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400 w-full sm:w-72"
+                className="bg-[#0d061f]/90 border border-purple-500/40 rounded-full px-5 py-3 text-xs text-slate-200 placeholder-slate-400 focus:outline-none focus:border-cyan-300 w-full sm:w-72"
               />
               <button
                 type="submit"
-                className="bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-6 py-3 rounded-full font-bold text-xs transition-all duration-300 shadow-[0_0_15px_rgba(34,211,238,0.2)] shrink-0"
+                className="bg-gradient-to-r from-cyan-300 to-blue-500 hover:from-cyan-200 hover:to-blue-400 text-slate-950 px-6 py-3 rounded-full font-bold text-xs transition-all duration-300 shadow-[0_0_15px_rgba(103,232,249,0.2)] shrink-0"
               >
                 SUBSCRIBE
               </button>
@@ -726,7 +732,7 @@ export const App: React.FC = () => {
           </div>
 
           {subscribed && (
-            <div className="mt-4 text-center text-cyan-400 text-xs font-medium">
+            <div className="mt-4 text-center text-cyan-300 text-xs font-medium">
               Thank you for subscribing to our network stream!
             </div>
           )}
@@ -734,7 +740,7 @@ export const App: React.FC = () => {
       </main>
 
       {/* Footer Bottom */}
-      <footer className="w-full border-t border-purple-900/40 py-6 px-4 sm:px-6 text-xs z-10 bg-[#05030d]/90 backdrop-blur-md">
+      <footer className="w-full border-t border-purple-500/20 py-6 px-4 sm:px-6 text-xs z-10 bg-[#070312]/90 backdrop-blur-md">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <span className="font-serif tracking-widest text-slate-200 font-semibold shine-text">
@@ -748,11 +754,11 @@ export const App: React.FC = () => {
           <div className="flex items-center gap-6 text-slate-400">
             <a
               href="#privacy"
-              className="hover:text-cyan-400 transition-colors"
+              className="hover:text-cyan-300 transition-colors"
             >
               Privacy
             </a>
-            <a href="#terms" className="hover:text-cyan-400 transition-colors">
+            <a href="#terms" className="hover:text-cyan-300 transition-colors">
               Terms
             </a>
           </div>
