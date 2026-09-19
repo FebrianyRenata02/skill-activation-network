@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const illustrations = [
   "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=600&auto=format&fit=crop&q=80",
@@ -124,12 +124,21 @@ const ConstellationCanvas: React.FC = () => {
 };
 
 export const Bootcamp: React.FC = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+
   const handleBackToHome = () => {
-    if (window.opener) {
-      window.close();
-    } else {
-      window.location.hash = "#/learning-path";
-    }
+    setMobileMenuOpen(false);
+    window.location.href = `${window.location.origin}/`;
+  };
+
+  const handleGoToLearningPath = () => {
+    setMobileMenuOpen(false);
+    window.location.href = `${window.location.origin}/#/learning-path`;
+  };
+
+  const handleGoToKampus = () => {
+    setMobileMenuOpen(false);
+    window.location.href = `${window.location.origin}/#/kampus`;
   };
 
   return (
@@ -170,8 +179,8 @@ export const Bootcamp: React.FC = () => {
       </a>
 
       {/* Header Sticky Navbar */}
-      <header className="sticky top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#0b0818]/90 border-b border-cyan-900/30 w-full shadow-lg">
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-20 h-20 flex items-center justify-between">
+      <header className="sticky top-0 left-0 right-0 z-50 bg-[#0a0518] border-b border-purple-900/40 w-full shadow-lg">
+        <div className="max-w-7xl mx-auto px-5 sm:px-12 md:px-20 h-16 sm:h-20 flex items-center justify-between">
           <button
             onClick={handleBackToHome}
             className="flex items-center gap-3 group focus:outline-none bg-transparent border-0 cursor-pointer p-0 text-left"
@@ -188,6 +197,7 @@ export const Bootcamp: React.FC = () => {
             </span>
           </button>
 
+          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-10 text-sm font-medium text-slate-300">
             <button
               onClick={handleBackToHome}
@@ -195,38 +205,127 @@ export const Bootcamp: React.FC = () => {
             >
               Beranda
             </button>
+            <button
+              onClick={handleGoToLearningPath}
+              className="hover:text-cyan-400 transition-colors bg-transparent border-0 cursor-pointer p-0 text-slate-300 text-sm font-medium"
+            >
+              Learning Path
+            </button>
             <span className="text-cyan-400 font-semibold cursor-default">
               Bootcamp
             </span>
+            <button
+              onClick={handleGoToKampus}
+              className="hover:text-cyan-400 transition-colors bg-transparent border-0 cursor-pointer p-0 text-slate-300 text-sm font-medium"
+            >
+              Kuliah & Kampus
+            </button>
           </nav>
 
-          <div className="flex items-center gap-2">
+          {/* Desktop CTA & Hamburger Button Trigger */}
+          <div className="flex items-center gap-3">
             <button
               onClick={handleBackToHome}
-              className="hidden sm:inline-flex bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.4)] items-center justify-center border-0 cursor-pointer"
+              className="hidden lg:inline-flex bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.4)] items-center justify-center border-0 cursor-pointer whitespace-nowrap"
             >
               Kembali ke Beranda
             </button>
+
+            {/* Tombol Hamburger Menu (Mobile) */}
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden text-slate-200 hover:text-cyan-400 focus:outline-none p-2 rounded-lg transition-colors"
+              aria-label="Toggle Menu"
+            >
+              {mobileMenuOpen ? (
+                // Ikon Silang (X)
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                // Ikon Garis 3 Hamburger
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              )}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Dropdown Solid (Background pekat tanpa tembus pandang) */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden w-full bg-[#0a0418] border-b border-purple-900/60 shadow-2xl px-6 pt-5 pb-7 flex flex-col items-center">
+            <div className="w-full flex flex-col items-center gap-5">
+              <button
+                onClick={handleBackToHome}
+                className="text-sm font-medium text-slate-200 hover:text-cyan-300 transition-colors bg-transparent border-0 cursor-pointer"
+              >
+                Beranda
+              </button>
+              <button
+                onClick={handleGoToLearningPath}
+                className="text-sm font-medium text-slate-200 hover:text-cyan-300 transition-colors bg-transparent border-0 cursor-pointer"
+              >
+                Learning Path
+              </button>
+              <span className="text-sm font-semibold text-cyan-400 cursor-default">
+                Bootcamp
+              </span>
+              <button
+                onClick={handleGoToKampus}
+                className="text-sm font-medium text-slate-200 hover:text-cyan-300 transition-colors bg-transparent border-0 cursor-pointer"
+              >
+                Kuliah & Kampus
+              </button>
+
+              <button
+                onClick={handleBackToHome}
+                className="w-full mt-2 py-3 rounded-xl bg-[#2563eb] hover:bg-blue-600 text-white font-semibold text-sm shadow-lg border-0 cursor-pointer transition-all"
+              >
+                Kembali ke Beranda
+              </button>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Main Content */}
-      <main className="relative z-10 w-full flex-1 py-16 px-6 sm:px-12 md:px-20 max-w-7xl mx-auto">
+      <main className="relative z-10 w-full flex-1 py-12 sm:py-16 px-5 sm:px-12 md:px-20 max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <p className="text-cyan-400 tracking-[0.25em] text-xs sm:text-sm font-semibold mb-3 uppercase">
             PROGRAM EKSKLUSIF
           </p>
-          <h1 className="text-4xl sm:text-5xl font-serif font-normal mb-6 text-slate-100">
+          <h1 className="text-3xl sm:text-5xl font-serif font-normal mb-6 text-slate-100">
             Bootcamp Intensif
           </h1>
-          <p className="text-slate-400 text-base sm:text-lg leading-relaxed">
+          <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
             Program pelatihan penuh praktik yang dirancang khusus untuk membimbing Anda dari pemula hingga siap kerja di industri tech global.
           </p>
         </div>
 
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl font-serif text-cyan-300 mb-8 text-center sm:text-left">
+          <h2 className="text-xl sm:text-2xl font-serif text-cyan-300 mb-8 text-center sm:text-left">
             Kurikulum & Materi Pembelajaran
           </h2>
 
