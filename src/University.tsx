@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 interface ProdiItem {
   id: number;
@@ -135,10 +135,11 @@ const ConstellationCanvas: React.FC = () => {
 };
 
 export const University: React.FC = () => {
-  // Ref target scroll mulus ke bagian Program Studi
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const prodiSectionRef = useRef<HTMLDivElement | null>(null);
 
   const handleScrollToProdi = () => {
+    setMobileMenuOpen(false);
     if (prodiSectionRef.current) {
       prodiSectionRef.current.scrollIntoView({
         behavior: "smooth",
@@ -148,11 +149,18 @@ export const University: React.FC = () => {
   };
 
   const handleBackToHome = () => {
-    if (window.opener) {
-      window.close();
-    } else {
-      window.location.hash = "#/learning-path";
-    }
+    setMobileMenuOpen(false);
+    window.location.href = `${window.location.origin}/`;
+  };
+
+  const handleGoToLearningPath = () => {
+    setMobileMenuOpen(false);
+    window.location.href = `${window.location.origin}/#/learning-path`;
+  };
+
+  const handleGoToBootcamp = () => {
+    setMobileMenuOpen(false);
+    window.location.href = `${window.location.origin}/#/bootcamp`;
   };
 
   return (
@@ -197,23 +205,22 @@ export const University: React.FC = () => {
       </a>
 
       {/* Header Sticky Navbar */}
-      <header className="sticky top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#0b0818]/90 border-b border-cyan-900/30 w-full shadow-lg">
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-20 h-20 flex items-center justify-between">
+      <header className="sticky top-0 left-0 right-0 z-50 bg-[#0a0518] border-b border-purple-900/40 w-full shadow-lg">
+        <div className="max-w-7xl mx-auto px-5 sm:px-12 md:px-20 h-16 sm:h-20 flex items-center justify-between">
           <div
             onClick={handleBackToHome}
             className="flex items-center gap-3 cursor-pointer group"
           >
-            {/* Logo Navbar SAN University.png */}
+            {/* Logo Navbar */}
             <div className="w-10 h-10 rounded-xl bg-[#0e0a20] border border-cyan-500/40 flex items-center justify-center overflow-hidden p-1 shadow-[0_0_15px_rgba(34,211,238,0.2)] group-hover:border-cyan-400 transition-colors">
               <img
-                src="/SAN%20University.png"
+                src="https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/san-academy2.png"
                 alt="Logo SAN University"
                 className="w-full h-full object-contain rounded-lg"
                 onError={(e) => {
                   const target = e.currentTarget;
-                  // Fallback pencarian bila berada di direktori assets lokal Vite
                   if (!target.src.includes("src/assets")) {
-                    target.src = new URL("./assets/SAN University.png", import.meta.url).href;
+                    target.src = "/SAN%20University.png";
                   }
                 }}
               />
@@ -223,6 +230,7 @@ export const University: React.FC = () => {
             </span>
           </div>
 
+          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-10 text-sm font-medium text-slate-300">
             <button
               onClick={handleBackToHome}
@@ -231,38 +239,131 @@ export const University: React.FC = () => {
               Beranda Utama
             </button>
             <button
+              onClick={handleGoToLearningPath}
+              className="hover:text-cyan-400 transition-colors bg-transparent border-0 cursor-pointer p-0 text-slate-300 text-sm font-medium"
+            >
+              Learning Path
+            </button>
+            <button
+              onClick={handleGoToBootcamp}
+              className="hover:text-cyan-400 transition-colors bg-transparent border-0 cursor-pointer p-0 text-slate-300 text-sm font-medium"
+            >
+              Bootcamp
+            </button>
+            <button
               onClick={handleScrollToProdi}
               className="hover:text-cyan-400 transition-colors bg-transparent border-0 cursor-pointer p-0 text-slate-300 text-sm font-medium"
             >
               Program Studi
             </button>
-            <button
-              onClick={handleScrollToProdi}
-              className="hover:text-cyan-400 transition-colors bg-transparent border-0 cursor-pointer p-0 text-slate-300 text-sm font-medium"
-            >
-              Fakultas
-            </button>
           </nav>
 
-          <div className="flex items-center gap-2">
+          {/* Desktop CTA Button & Mobile Hamburger Trigger */}
+          <div className="flex items-center gap-3">
             <button
               onClick={handleBackToHome}
-              className="hidden sm:inline-flex bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.4)] items-center justify-center border-0 cursor-pointer whitespace-nowrap"
+              className="hidden lg:inline-flex bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.4)] items-center justify-center border-0 cursor-pointer whitespace-nowrap"
             >
               Kembali ke Beranda
             </button>
+
+            {/* Hamburger Button (Mobile) */}
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden text-slate-200 hover:text-cyan-400 focus:outline-none p-2 rounded-lg transition-colors"
+              aria-label="Buka Menu"
+            >
+              {mobileMenuOpen ? (
+                // Ikon Silang (X) persis seperti referensi
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                // Ikon Garis 3 Hamburger
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              )}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Dropdown Menu Solid (PERSIS SEPERTI GAMBAR PERTAMA: SOLID HITAM-UNGU PEKAT, TIDAK TRANSPARAN & TIDAK MENIMPA KONTEN) */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden w-full bg-[#0a0418] border-b border-purple-900/60 shadow-2xl px-6 pt-5 pb-7 flex flex-col items-center">
+            <div className="w-full flex flex-col items-center gap-5">
+              <button
+                onClick={handleBackToHome}
+                className="text-sm font-medium text-slate-200 hover:text-cyan-300 transition-colors bg-transparent border-0 cursor-pointer"
+              >
+                Beranda Utama
+              </button>
+              <button
+                onClick={handleGoToLearningPath}
+                className="text-sm font-medium text-slate-200 hover:text-cyan-300 transition-colors bg-transparent border-0 cursor-pointer"
+              >
+                Learning Path
+              </button>
+              <button
+                onClick={handleGoToBootcamp}
+                className="text-sm font-medium text-slate-200 hover:text-cyan-300 transition-colors bg-transparent border-0 cursor-pointer"
+              >
+                Bootcamp
+              </button>
+              <button
+                onClick={handleScrollToProdi}
+                className="text-sm font-medium text-slate-200 hover:text-cyan-300 transition-colors bg-transparent border-0 cursor-pointer"
+              >
+                Program Studi
+              </button>
+              <button
+                onClick={handleScrollToProdi}
+                className="text-sm font-medium text-slate-200 hover:text-cyan-300 transition-colors bg-transparent border-0 cursor-pointer"
+              >
+                Fakultas
+              </button>
+
+              {/* Tombol aksi biru solid full-width seperti tombol Enroll di referensi */}
+              <button
+                onClick={handleBackToHome}
+                className="w-full mt-2 py-3 rounded-xl bg-[#2563eb] hover:bg-blue-600 text-white font-semibold text-sm shadow-lg border-0 cursor-pointer transition-all"
+              >
+                Kembali ke Beranda
+              </button>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Main Content */}
-      <main className="relative z-10 w-full flex-1 py-16 px-6 sm:px-12 md:px-20 max-w-7xl mx-auto">
+      <main className="relative z-10 w-full flex-1 py-12 sm:py-16 px-5 sm:px-12 md:px-20 max-w-7xl mx-auto">
         {/* Hero Section */}
-        <div className="text-left max-w-3xl mb-24 pt-6">
+        <div className="text-left max-w-3xl mb-16 sm:mb-24 pt-4 sm:pt-6">
           <p className="text-cyan-400 tracking-[0.25em] text-xs sm:text-sm font-semibold mb-4 uppercase">
             PENDIDIKAN TINGGI FORMAL 2026
           </p>
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-serif font-normal mb-6 text-slate-100 leading-tight">
+          <h1 className="text-3xl sm:text-6xl md:text-7xl font-serif font-normal mb-6 text-slate-100 leading-tight">
             Membangun Masa Depan Bersama SAN University
           </h1>
           <p className="text-slate-400 text-sm sm:text-base leading-relaxed font-light mb-8 max-w-2xl">
@@ -272,7 +373,6 @@ export const University: React.FC = () => {
             berbasis teknologi masa depan.
           </p>
           <div>
-            {/* Tombol otomatis scroll ke bagian Fakultas & Jurusan */}
             <button
               onClick={handleScrollToProdi}
               className="inline-block bg-white hover:bg-cyan-300 text-slate-950 font-bold text-xs tracking-wider px-8 py-3.5 rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.15)] uppercase border-0 cursor-pointer"
