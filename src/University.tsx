@@ -211,19 +211,17 @@ export const University: React.FC = () => {
             onClick={handleBackToHome}
             className="flex items-center gap-3 cursor-pointer group"
           >
-            {/* Logo Navbar SAN-University.png */}
+            {/* Logo Navbar SAN_University.png */}
             <div className="w-10 h-10 rounded-xl bg-[#0e0a20] border border-cyan-500/40 flex items-center justify-center overflow-hidden p-1 shadow-[0_0_15px_rgba(34,211,238,0.2)] group-hover:border-cyan-400 transition-colors">
               <img
-                src="/SAN-University.png"
+                src="/SAN_University.png"
                 alt="Logo SAN University"
                 className="w-full h-full object-contain rounded-lg"
                 onError={(e) => {
                   const target = e.currentTarget;
                   if (!target.src.includes("raw.githubusercontent.com")) {
                     target.src =
-                      "https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/SAN-University.png";
-                  } else {
-                    target.src = "./SAN-University.png";
+                      "https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/SAN_University.png";
                   }
                 }}
               />
