@@ -211,16 +211,20 @@ export const University: React.FC = () => {
             onClick={handleBackToHome}
             className="flex items-center gap-3 cursor-pointer group"
           >
-            {/* Logo Navbar */}
+            {/* Logo Navbar SAN University.png */}
             <div className="w-10 h-10 rounded-xl bg-[#0e0a20] border border-cyan-500/40 flex items-center justify-center overflow-hidden p-1 shadow-[0_0_15px_rgba(34,211,238,0.2)] group-hover:border-cyan-400 transition-colors">
               <img
-                src="https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/san-academy2.png"
+                src="./SAN%20University.png"
                 alt="Logo SAN University"
                 className="w-full h-full object-contain rounded-lg"
                 onError={(e) => {
                   const target = e.currentTarget;
-                  if (!target.src.includes("src/assets")) {
-                    target.src = "/SAN%20University.png";
+                  // Jika path lokal belum ketemu, fallback ke path root atau repo assets
+                  if (!target.src.includes("skill-activation-network")) {
+                    target.src =
+                      "https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/SAN%20University.png";
+                  } else {
+                    target.src = "/SAN University.png";
                   }
                 }}
               />
@@ -275,7 +279,6 @@ export const University: React.FC = () => {
               aria-label="Buka Menu"
             >
               {mobileMenuOpen ? (
-                // Ikon Silang (X) persis seperti referensi
                 <svg
                   className="w-6 h-6"
                   fill="none"
@@ -290,7 +293,6 @@ export const University: React.FC = () => {
                   />
                 </svg>
               ) : (
-                // Ikon Garis 3 Hamburger
                 <svg
                   className="w-6 h-6"
                   fill="none"
@@ -309,7 +311,7 @@ export const University: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Dropdown Menu Solid (PERSIS SEPERTI GAMBAR PERTAMA: SOLID HITAM-UNGU PEKAT, TIDAK TRANSPARAN & TIDAK MENIMPA KONTEN) */}
+        {/* Mobile Dropdown Menu Solid */}
         {mobileMenuOpen && (
           <div className="lg:hidden w-full bg-[#0a0418] border-b border-purple-900/60 shadow-2xl px-6 pt-5 pb-7 flex flex-col items-center">
             <div className="w-full flex flex-col items-center gap-5">
@@ -344,7 +346,6 @@ export const University: React.FC = () => {
                 Fakultas
               </button>
 
-              {/* Tombol aksi biru solid full-width seperti tombol Enroll di referensi */}
               <button
                 onClick={handleBackToHome}
                 className="w-full mt-2 py-3 rounded-xl bg-[#2563eb] hover:bg-blue-600 text-white font-semibold text-sm shadow-lg border-0 cursor-pointer transition-all"
