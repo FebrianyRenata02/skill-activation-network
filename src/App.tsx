@@ -1,4 +1,7 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
+import { LearningPath } from "./LearningPath";
+import { Bootcamp } from "./bootcamp";
+import { University } from "./University";
 
 interface Fasilitas {
   id: string;
@@ -7,12 +10,14 @@ interface Fasilitas {
   description: string;
   image: string;
   externalLink?: string;
+  internalPath?: string;
 }
 
 interface FeaturedFasilitas {
   name: string;
   image: string;
   externalLink?: string;
+  internalPath?: string;
 }
 
 interface Mission {
@@ -20,6 +25,7 @@ interface Mission {
   title: string;
   date: string;
   patchUrl: string;
+  glowColor?: string;
 }
 
 const FASILITAS_DATA: Fasilitas[] = [
@@ -59,7 +65,7 @@ const FASILITAS_DATA: Fasilitas[] = [
       "Wadah bagi siswa untuk merintis startup, mendapatkan mentorship langsung, serta akses ke ekosistem industri digital.",
     image:
       "https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/san-academy2.png",
-    externalLink: "https://san-academy-fkyn.vercel.app/",
+    internalPath: "#/learning-path",
   },
   {
     id: "library",
@@ -82,7 +88,7 @@ const FEATURED_FASILITAS: FeaturedFasilitas[] = [
     name: "LEARNING FACILITIES",
     image:
       "https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/san-academy2.png",
-    externalLink: "https://san-academy-fkyn.vercel.app/",
+    internalPath: "#/learning-path",
   },
   {
     name: "WORKING SPACE",
@@ -103,32 +109,35 @@ const MISSIONS_DATA: Mission[] = [
     title: "Febriany Renata",
     date: "Founder",
     patchUrl:
-      "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=100&auto=format&fit=crop&q=70",
+      "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=160&auto=format&fit=crop&q=80",
+    glowColor: "rgba(192, 132, 252, 0.45)",
   },
   {
     id: "2",
     title: "lorem",
     date: "Admin",
     patchUrl:
-      "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=100&auto=format&fit=crop&q=70",
+      "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=160&auto=format&fit=crop&q=80",
+    glowColor: "rgba(34, 211, 238, 0.45)",
   },
   {
     id: "3",
     title: "lorem",
     date: "Moderator",
     patchUrl:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=100&auto=format&fit=crop&q=70",
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=160&auto=format&fit=crop&q=80",
+    glowColor: "rgba(236, 72, 153, 0.45)",
   },
   {
     id: "4",
     title: "lorem",
     date: "Moderator",
     patchUrl:
-      "https://images.unsplash.com/photo-1614728423169-3f65fd722b7e?w=100&auto=format&fit=crop&q=70",
+      "https://images.unsplash.com/photo-1614728423169-3f65fd722b7e?w=160&auto=format&fit=crop&q=80",
+    glowColor: "rgba(96, 165, 250, 0.45)",
   },
 ];
 
-// Komponen Background Canvas Jaringan Ungu (Sangat Muda & Lembut)
 const NetworkBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -228,11 +237,38 @@ const NetworkBackground: React.FC = () => {
 };
 
 export const App: React.FC = () => {
+  const [currentRoute, setCurrentRoute] = useState<string>(
+    typeof window !== "undefined" ? window.location.hash : ""
+  );
   const [activeFasilitasIndex, setActiveFasilitasIndex] = useState<number>(0);
   const [isServicesOpen, setIsServicesOpen] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [emailInput, setEmailInput] = useState<string>("");
   const [subscribed, setSubscribed] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentRoute(window.location.hash);
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
+  // 1. Rute tab baru Kuliah & Kampus (SAN University)
+  if (currentRoute === "#/kampus") {
+    return <University />;
+  }
+
+  // 2. Rute tab baru Bootcamp (SAN Academy Bootcamp)
+  if (currentRoute === "#/bootcamp") {
+    return <Bootcamp />;
+  }
+
+  // 3. Rute tab baru Learning Facilities (SAN Academy Learning Path)
+  if (currentRoute === "#/learning-path") {
+    return <LearningPath />;
+  }
 
   const currentFasilitas = FASILITAS_DATA[activeFasilitasIndex];
 
@@ -249,7 +285,7 @@ export const App: React.FC = () => {
 
   const handlePrevFasilitas = useCallback(() => {
     setActiveFasilitasIndex(
-      (prev) => (prev - 1 + FASILITAS_DATA.length) % FASILITAS_DATA.length,
+      (prev) => (prev - 1 + FASILITAS_DATA.length) % FASILITAS_DATA.length
     );
   }, []);
 
@@ -262,10 +298,17 @@ export const App: React.FC = () => {
     }
   };
 
-  const handleFasilitasRedirect = () => {
-    if (currentFasilitas.externalLink) {
-      window.location.href = currentFasilitas.externalLink;
+  const openInNewTab = (item: { externalLink?: string; internalPath?: string }) => {
+    if (item.internalPath) {
+      const targetUrl = `${window.location.origin}${window.location.pathname}${item.internalPath}`;
+      window.open(targetUrl, "_blank", "noopener,noreferrer");
+    } else if (item.externalLink) {
+      window.open(item.externalLink, "_blank", "noopener,noreferrer");
     }
+  };
+
+  const handleFasilitasRedirect = () => {
+    openInNewTab(currentFasilitas);
   };
 
   return (
@@ -286,6 +329,22 @@ export const App: React.FC = () => {
           0% { background-position: -200% center; }
           100% { background-position: 200% center; }
         }
+        @keyframes cosmicPulse {
+          0%, 100% {
+            transform: scale(1);
+            opacity: 0.55;
+            filter: blur(14px);
+          }
+          50% {
+            transform: scale(1.18);
+            opacity: 0.95;
+            filter: blur(20px);
+          }
+        }
+        @keyframes cosmicHaloSpin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
         .animate-galaxy-spin {
           animation: galaxySpin 150s linear infinite;
           will-change: transform;
@@ -293,6 +352,12 @@ export const App: React.FC = () => {
         .animate-reverse-spin {
           animation: reverseGalaxySpin 180s linear infinite;
           will-change: transform;
+        }
+        .animate-cosmic-pulse {
+          animation: cosmicPulse 4s ease-in-out infinite;
+        }
+        .animate-halo-spin {
+          animation: cosmicHaloSpin 12s linear infinite;
         }
         .shine-text {
           background: linear-gradient(
@@ -309,7 +374,7 @@ export const App: React.FC = () => {
         }
       `}</style>
 
-      {/* Background Jaringan Ungu */}
+      {/* Latar Belakang Jaringan */}
       <NetworkBackground />
 
       {/* Floating WhatsApp Button */}
@@ -384,6 +449,20 @@ export const App: React.FC = () => {
               )}
             </div>
 
+            <button
+              onClick={() => openInNewTab({ internalPath: "#/learning-path" })}
+              className="hover:text-cyan-300 transition-colors bg-transparent border-0 p-0 cursor-pointer text-sm font-medium text-slate-300"
+            >
+              Learning Facilities
+            </button>
+
+            <button
+              onClick={() => openInNewTab({ internalPath: "#/bootcamp" })}
+              className="hover:text-cyan-300 transition-colors bg-transparent border-0 p-0 cursor-pointer text-sm font-medium text-slate-300"
+            >
+              Bootcamp
+            </button>
+
             <a
               href="#team-work"
               className="hover:text-cyan-300 transition-colors"
@@ -396,7 +475,10 @@ export const App: React.FC = () => {
           </nav>
 
           <div className="flex items-center gap-2">
-            <button className="hidden sm:block bg-gradient-to-r from-cyan-300 to-blue-500 hover:from-cyan-200 hover:to-blue-400 text-slate-950 px-6 py-2 rounded-full font-bold text-sm transition-all duration-300 shadow-[0_0_20px_rgba(103,232,249,0.3)]">
+            <button
+              onClick={() => openInNewTab({ internalPath: "#/learning-path" })}
+              className="hidden sm:block bg-gradient-to-r from-cyan-300 to-blue-500 hover:from-cyan-200 hover:to-blue-400 text-slate-950 px-6 py-2 rounded-full font-bold text-sm transition-all duration-300 shadow-[0_0_20px_rgba(103,232,249,0.3)]"
+            >
               Enroll
             </button>
 
@@ -442,6 +524,24 @@ export const App: React.FC = () => {
             >
               Fasilitas
             </a>
+            <button
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                openInNewTab({ internalPath: "#/learning-path" });
+              }}
+              className="text-slate-300 hover:text-cyan-300 text-sm py-1 font-medium bg-transparent border-0 cursor-pointer"
+            >
+              Learning Facilities
+            </button>
+            <button
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                openInNewTab({ internalPath: "#/bootcamp" });
+              }}
+              className="text-slate-300 hover:text-cyan-300 text-sm py-1 font-medium bg-transparent border-0 cursor-pointer"
+            >
+              Bootcamp
+            </button>
             <a
               href="#team-work"
               onClick={() => setIsMobileMenuOpen(false)}
@@ -456,7 +556,13 @@ export const App: React.FC = () => {
             >
               Blog
             </a>
-            <button className="sm:hidden bg-gradient-to-r from-cyan-300 to-blue-500 text-slate-950 px-4 py-2 rounded-full font-bold text-xs w-full mt-1">
+            <button
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                openInNewTab({ internalPath: "#/learning-path" });
+              }}
+              className="sm:hidden bg-gradient-to-r from-cyan-300 to-blue-500 text-slate-950 px-4 py-2 rounded-full font-bold text-xs w-full mt-1"
+            >
               Enroll
             </button>
           </div>
@@ -493,7 +599,7 @@ export const App: React.FC = () => {
             </div>
           </div>
 
-          {/* Banner Navigasi Central (Garis Tepi / Border Lingkaran Besar Dihilangkan Total) */}
+          {/* Banner Navigasi Central */}
           <div className="relative w-full my-6 flex flex-col md:flex-row items-center justify-between z-10 px-2 gap-4">
             <button
               onClick={handlePrevFasilitas}
@@ -508,19 +614,15 @@ export const App: React.FC = () => {
             <div
               onClick={handleFasilitasRedirect}
               className={`relative w-48 h-48 sm:w-72 sm:h-72 md:w-[380px] md:h-[380px] lg:w-[420px] lg:h-[420px] flex items-center justify-center group select-none transition-all duration-500 border-0 outline-none ring-0 ${
-                currentFasilitas.externalLink ? "cursor-pointer" : ""
+                currentFasilitas.externalLink || currentFasilitas.internalPath
+                  ? "cursor-pointer"
+                  : ""
               }`}
             >
-              {/* Efek Cahaya Latar yang Lebih Soft & Muda */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-400/30 via-fuchsia-400/30 to-purple-400/30 opacity-40 blur-2xl pointer-events-none" />
-
-              {/* Garis Tebal Berputar (Warna Diperhalus/Muda) */}
               <div className="absolute -inset-3 rounded-full p-[3px] bg-[conic-gradient(from_0deg,#22d3ee,#c084fc,#f472b6,#60a5fa,#22d3ee)] animate-galaxy-spin opacity-50 border-0 outline-none" />
-
-              {/* Garis Putus-putus Orbit */}
               <div className="absolute -inset-1.5 rounded-full border border-dashed border-cyan-200/20 animate-reverse-spin opacity-40 border-0 outline-none" />
 
-              {/* Container Lingkaran Utama (Border Dihilangkan Bersih) */}
               <div className="relative w-full h-full rounded-full aspect-square bg-[#0d061f] flex items-center justify-center overflow-hidden shadow-2xl border-0 outline-none ring-0">
                 <img
                   src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=500&auto=format&fit=crop&q=80"
@@ -532,7 +634,6 @@ export const App: React.FC = () => {
                 />
                 <div className="absolute inset-0 bg-black/20 pointer-events-none rounded-full border-0 outline-none" />
 
-                {/* LOGO TENGAH (Tanpa Garis Tepi/Border Sama Sekali) */}
                 <div className="relative z-10 w-[92%] h-[92%] rounded-full aspect-square bg-transparent flex items-center justify-center overflow-hidden border-0 outline-none ring-0 shadow-none">
                   <img
                     src="https://raw.githubusercontent.com/FebrianyRenata02/san-academy-bootcamp/refs/heads/main/src/assets/Untitled%20(33).png"
@@ -580,7 +681,7 @@ export const App: React.FC = () => {
 
           <div className="z-10 text-center flex flex-col items-center gap-2 mt-2">
             <button
-              onClick={handleFasilitasRedirect}
+              onClick={() => openInNewTab({ internalPath: "#/learning-path" })}
               className="bg-slate-100 hover:bg-cyan-300 text-slate-950 px-6 py-2 rounded-full font-bold text-xs transition-colors duration-300 shadow-[0_0_15px_rgba(255,255,255,0.15)]"
             >
               EXPLORE DEEP SPACE
@@ -604,11 +705,11 @@ export const App: React.FC = () => {
                 key={index}
                 className="bg-purple-950/20 border border-purple-500/25 rounded-2xl p-6 text-left md:text-center hover:border-cyan-400/40 transition-all duration-300 hover:-translate-y-1 group cursor-pointer backdrop-blur-md shadow-lg"
                 onClick={() => {
-                  if (item.externalLink) {
-                    window.location.href = item.externalLink;
+                  if (item.internalPath || item.externalLink) {
+                    openInNewTab(item);
                   } else {
                     const foundIndex = FASILITAS_DATA.findIndex(
-                      (f) => f.name.toLowerCase() === item.name.toLowerCase(),
+                      (f) => f.name.toLowerCase() === item.name.toLowerCase()
                     );
                     if (foundIndex !== -1) setActiveFasilitasIndex(foundIndex);
                   }
@@ -661,32 +762,42 @@ export const App: React.FC = () => {
         {/* Team Work Section */}
         <section
           id="team-work"
-          className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-500/20"
+          className="py-16 md:py-24 px-4 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-500/20"
         >
-          <h2 className="text-left md:text-center text-xs tracking-[0.3em] font-bold text-cyan-300 mb-8 md:mb-12 uppercase">
-            Team Work
-          </h2>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-            {MISSIONS_DATA.map((mission) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12">
+            {MISSIONS_DATA.map((mission, idx) => (
               <div
                 key={mission.id}
-                className="flex flex-col items-start md:items-center text-left md:text-center group"
+                className="flex flex-col items-center text-center group cursor-pointer"
               >
-                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-purple-950/40 border border-purple-400/30 flex items-center justify-center p-2 mb-3 sm:mb-4 group-hover:border-cyan-300 transition-colors duration-300">
-                  <img
-                    src={mission.patchUrl}
-                    alt={mission.title}
-                    width="80"
-                    height="80"
-                    className="w-full h-full object-cover rounded-full"
-                    loading="lazy"
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 mb-4 flex items-center justify-center">
+                  <div
+                    className="absolute -inset-2.5 rounded-full animate-cosmic-pulse pointer-events-none"
+                    style={{
+                      backgroundColor: mission.glowColor || "rgba(192, 132, 252, 0.45)",
+                      animationDelay: `${idx * 0.7}s`,
+                    }}
                   />
+                  <div
+                    className="absolute -inset-1 rounded-full p-[1.5px] bg-gradient-to-tr from-purple-500 via-cyan-400 to-fuchsia-500 animate-halo-spin opacity-80"
+                    style={{ animationDuration: `${10 + idx * 3}s` }}
+                  />
+                  <div className="relative w-full h-full rounded-full bg-[#0d061f] border border-purple-300/40 p-1 flex items-center justify-center overflow-hidden shadow-[0_0_20px_rgba(192,132,252,0.4)] group-hover:scale-105 transition-transform duration-300">
+                    <img
+                      src={mission.patchUrl}
+                      alt={mission.title}
+                      width="96"
+                      height="96"
+                      className="w-full h-full object-cover rounded-full"
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
-                <span className="text-xs text-cyan-300 font-mono mb-1">
+
+                <span className="text-[11px] sm:text-xs text-cyan-300 font-mono mb-1 tracking-wider">
                   {mission.date}
                 </span>
-                <h4 className="font-semibold text-xs sm:text-sm text-slate-200">
+                <h4 className="font-semibold text-xs sm:text-sm text-slate-200 group-hover:text-cyan-200 transition-colors">
                   {mission.title}
                 </h4>
               </div>
@@ -697,38 +808,42 @@ export const App: React.FC = () => {
         {/* Footer & Subscription Section */}
         <section
           id="blog"
-          className="py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto w-full border-t border-purple-500/20"
+          className="py-12 md:py-16 px-4 sm:px-6 max-w-7xl mx-auto w-full"
         >
-          <div className="bg-gradient-to-r from-purple-950/40 via-purple-900/20 to-cyan-950/30 border border-purple-500/25 rounded-3xl p-8 sm:p-12 backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
-            <div className="text-left max-w-xl">
-              <h3 className="text-xl sm:text-2xl font-serif text-slate-100 mb-2">
-                Join our newsletter stream
-              </h3>
-              <p className="text-slate-300 text-xs sm:text-sm font-light">
-                Receive weekly updates regarding courses, space missions, and
-                community achievements.
-              </p>
-            </div>
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/30 via-cyan-500/20 to-purple-800/30 rounded-[34px] blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-            <form
-              onSubmit={handleSubscribe}
-              className="w-full md:w-auto flex flex-col sm:flex-row gap-3"
-            >
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={emailInput}
-                onChange={(e) => setEmailInput(e.target.value)}
-                required
-                className="bg-[#0d061f]/90 border border-purple-500/40 rounded-full px-5 py-3 text-xs text-slate-200 placeholder-slate-400 focus:outline-none focus:border-cyan-300 w-full sm:w-72"
-              />
-              <button
-                type="submit"
-                className="bg-gradient-to-r from-cyan-300 to-blue-500 hover:from-cyan-200 hover:to-blue-400 text-slate-950 px-6 py-3 rounded-full font-bold text-xs transition-all duration-300 shadow-[0_0_15px_rgba(103,232,249,0.2)] shrink-0"
+            <div className="relative bg-gradient-to-r from-[#170c38]/95 via-[#13092e]/95 to-[#0b051c]/95 border border-purple-500/30 rounded-3xl p-8 sm:p-12 backdrop-blur-xl flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
+              <div className="text-left max-w-xl">
+                <h3 className="text-xl sm:text-2xl font-serif text-slate-100 mb-2">
+                  Join our newsletter stream
+                </h3>
+                <p className="text-slate-300 text-xs sm:text-sm font-light leading-relaxed">
+                  Receive weekly updates regarding courses, space missions, and
+                  community achievements.
+                </p>
+              </div>
+
+              <form
+                onSubmit={handleSubscribe}
+                className="w-full md:w-auto flex flex-col sm:flex-row items-center gap-3 shrink-0"
               >
-                SUBSCRIBE
-              </button>
-            </form>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
+                  required
+                  className="bg-[#090317]/90 border border-purple-500/40 rounded-full px-5 py-3 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-300 w-full sm:w-72 transition-colors"
+                />
+                <button
+                  type="submit"
+                  className="w-full sm:w-auto bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-slate-950 px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-[0_0_18px_rgba(103,232,249,0.35)] shrink-0"
+                >
+                  SUBSCRIBE
+                </button>
+              </form>
+            </div>
           </div>
 
           {subscribed && (
@@ -740,25 +855,29 @@ export const App: React.FC = () => {
       </main>
 
       {/* Footer Bottom */}
-      <footer className="w-full border-t border-purple-500/20 py-6 px-4 sm:px-6 text-xs z-10 bg-[#070312]/90 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
+      <footer className="w-full border-t border-purple-500/15 py-7 px-4 sm:px-8 text-xs bg-[#070312]/95 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 text-slate-400">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 sm:gap-3">
             <span className="font-serif tracking-widest text-slate-200 font-semibold shine-text">
               Skill Activation Network
             </span>
-            <span className="text-slate-600">|</span>
+            <span className="text-slate-600 select-none">|</span>
             <span className="text-slate-500">
               © 2026 SAN Co., Ltd. All rights reserved.
             </span>
           </div>
-          <div className="flex items-center gap-6 text-slate-400">
+
+          <div className="flex items-center gap-6 text-slate-400 font-medium">
             <a
               href="#privacy"
-              className="hover:text-cyan-300 transition-colors"
+              className="hover:text-cyan-300 transition-colors duration-200"
             >
               Privacy
             </a>
-            <a href="#terms" className="hover:text-cyan-300 transition-colors">
+            <a
+              href="#terms"
+              className="hover:text-cyan-300 transition-colors duration-200"
+            >
               Terms
             </a>
           </div>
