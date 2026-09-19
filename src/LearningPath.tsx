@@ -155,26 +155,38 @@ const NetworkConstellationCanvas: React.FC = () => {
 export const LearningPath: React.FC = () => {
   const [emailInput, setEmailInput] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  // Memaksa browser kembali langsung ke http://localhost:5173/ (atau root domain)
+  // Navigasi ke Beranda (Root URL)
   const navigateToHome = () => {
+    setMobileMenuOpen(false);
     window.location.href = `${window.location.origin}/`;
   };
 
-  // Navigasi / buka tab baru ke University.tsx (#/kampus)
+  // Navigasi ke University (#/kampus)
   const openKampusTab = () => {
+    setMobileMenuOpen(false);
     const targetUrl = `${window.location.origin}/#/kampus`;
     window.open(targetUrl, "_blank", "noopener,noreferrer");
   };
 
-  // Navigasi / buka tab baru ke bootcamp.tsx (#/bootcamp)
+  // Navigasi ke Bootcamp (#/bootcamp)
   const openBootcampTab = () => {
+    setMobileMenuOpen(false);
     const targetUrl = `${window.location.origin}/#/bootcamp`;
     window.open(targetUrl, "_blank", "noopener,noreferrer");
+  };
+
+  const handleScrollToSection = (id: string) => {
+    setMobileMenuOpen(false);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   const handleSubmitOpenClass = (e: React.FormEvent) => {
@@ -239,9 +251,9 @@ export const LearningPath: React.FC = () => {
       </a>
 
       {/* Header Sticky Navbar */}
-      <header className="sticky top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#0a0418]/85 border-b border-cyan-900/30 w-full shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
-          {/* Logo & Brand (Klik langsung ke http://localhost:5173/) */}
+      <header className="sticky top-0 left-0 right-0 z-50 bg-[#0a0518] border-b border-purple-900/40 w-full shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
+          {/* Logo & Brand */}
           <button
             type="button"
             onClick={navigateToHome}
@@ -260,16 +272,18 @@ export const LearningPath: React.FC = () => {
             </span>
           </button>
 
-          {/* Navigasi Navbar */}
-          <nav className="hidden md:flex items-center gap-8 text-xs sm:text-sm font-medium text-slate-300">
-            {/* Tombol Beranda: Auto ke http://localhost:5173/ */}
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-8 text-xs sm:text-sm font-medium text-slate-300">
             <button
               type="button"
               onClick={navigateToHome}
-              className="text-cyan-300 hover:text-cyan-100 font-semibold transition-colors duration-200 bg-transparent border-0 cursor-pointer p-0 focus:outline-none"
+              className="text-slate-300 hover:text-cyan-300 transition-colors duration-200 bg-transparent border-0 cursor-pointer p-0 focus:outline-none"
             >
               Beranda
             </button>
+            <span className="text-cyan-300 font-semibold cursor-default">
+              Learning Path
+            </span>
             <button
               type="button"
               onClick={openBootcampTab}
@@ -286,18 +300,105 @@ export const LearningPath: React.FC = () => {
             </button>
           </nav>
 
-          {/* Tombol Gabung Kelas dengan Pulse Glow */}
-          <div className="flex items-center">
+          {/* Desktop CTA & Hamburger Button Trigger */}
+          <div className="flex items-center gap-3">
             <a
               href="https://wa.me/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-6 py-2.5 rounded-full font-bold text-xs sm:text-sm transition-all duration-300 animate-pulse-glow whitespace-nowrap"
+              className="hidden sm:inline-flex items-center justify-center bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 px-6 py-2.5 rounded-full font-bold text-xs sm:text-sm transition-all duration-300 animate-pulse-glow whitespace-nowrap"
             >
               Gabung Kelas
             </a>
+
+            {/* Tombol Hamburger Mobile */}
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden text-slate-200 hover:text-cyan-400 focus:outline-none p-2 rounded-lg transition-colors"
+              aria-label="Toggle Menu"
+            >
+              {mobileMenuOpen ? (
+                // Ikon Silang (X)
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                // Ikon Hamburger (Garis 3)
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              )}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Dropdown Solid (Pekat Solid, Bebas Tabrakan Teks) */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden w-full bg-[#0a0418] border-b border-purple-900/60 shadow-2xl px-6 pt-5 pb-7 flex flex-col items-center">
+            <div className="w-full flex flex-col items-center gap-5">
+              <button
+                type="button"
+                onClick={navigateToHome}
+                className="text-sm font-medium text-slate-200 hover:text-cyan-300 transition-colors bg-transparent border-0 cursor-pointer"
+              >
+                Beranda
+              </button>
+              <span className="text-sm font-semibold text-cyan-400 cursor-default">
+                Learning Path
+              </span>
+              <button
+                type="button"
+                onClick={openBootcampTab}
+                className="text-sm font-medium text-slate-200 hover:text-cyan-300 transition-colors bg-transparent border-0 cursor-pointer"
+              >
+                Bootcamp
+              </button>
+              <button
+                type="button"
+                onClick={openKampusTab}
+                className="text-sm font-medium text-slate-200 hover:text-cyan-300 transition-colors bg-transparent border-0 cursor-pointer"
+              >
+                Kuliah & Kampus
+              </button>
+              <button
+                type="button"
+                onClick={() => handleScrollToSection("daftar-open-class")}
+                className="text-sm font-medium text-slate-200 hover:text-cyan-300 transition-colors bg-transparent border-0 cursor-pointer"
+              >
+                Daftar Open Class
+              </button>
+
+              <button
+                type="button"
+                onClick={navigateToHome}
+                className="w-full mt-2 py-3 rounded-xl bg-[#2563eb] hover:bg-blue-600 text-white font-semibold text-sm shadow-lg border-0 cursor-pointer transition-all"
+              >
+                Kembali ke Beranda
+              </button>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Main Content */}
