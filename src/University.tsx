@@ -15,7 +15,7 @@ const PRODI_DATA: ProdiItem[] = [
     title: "Teknik Informatika",
     description:
       "Mempelajari pengembangan perangkat lunak, kecerdasan buatan, arsitektur data, dan komputasi awan modern.",
-    link: "https://wa.me/",
+    link: "index.html#/kampus",
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const PRODI_DATA: ProdiItem[] = [
     title: "Sistem Informasi",
     description:
       "Fokus pada integrasi solusi teknologi informasi dengan manajemen strategi bisnis korporasi global.",
-    link: "https://wa.me/",
+    link: "index.html#/kampus",
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ const PRODI_DATA: ProdiItem[] = [
     title: "Teknologi Multimedia",
     description:
       "Pendidikan vokasi yang mendalam di bidang desain interaktif, animasi digital, dan produksi media kreatif.",
-    link: "https://wa.me/",
+    link: "index.html#/kampus",
   },
 ];
 
