@@ -156,15 +156,24 @@ export const LearningPath: React.FC = () => {
   const [emailInput, setEmailInput] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
-  // Auto buka tab baru ke University.tsx (#/kampus)
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  // Memaksa browser kembali langsung ke http://localhost:5173/ (atau root domain)
+  const navigateToHome = () => {
+    window.location.href = `${window.location.origin}/`;
+  };
+
+  // Navigasi / buka tab baru ke University.tsx (#/kampus)
   const openKampusTab = () => {
-    const targetUrl = `${window.location.origin}${window.location.pathname}#/kampus`;
+    const targetUrl = `${window.location.origin}/#/kampus`;
     window.open(targetUrl, "_blank", "noopener,noreferrer");
   };
 
-  // Auto buka tab baru ke bootcamp.tsx (#/bootcamp)
+  // Navigasi / buka tab baru ke bootcamp.tsx (#/bootcamp)
   const openBootcampTab = () => {
-    const targetUrl = `${window.location.origin}${window.location.pathname}#/bootcamp`;
+    const targetUrl = `${window.location.origin}/#/bootcamp`;
     window.open(targetUrl, "_blank", "noopener,noreferrer");
   };
 
@@ -229,12 +238,17 @@ export const LearningPath: React.FC = () => {
         />
       </a>
 
-      {/* Header Sticky Navbar dengan Efek Menyala */}
+      {/* Header Sticky Navbar */}
       <header className="sticky top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#0a0418]/85 border-b border-cyan-900/30 w-full shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
-          {/* Logo & Brand Shimmer */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#0e0a20] border border-cyan-500/40 flex items-center justify-center overflow-hidden p-1.5 shadow-[0_0_18px_rgba(34,211,238,0.3)]">
+          {/* Logo & Brand (Klik langsung ke http://localhost:5173/) */}
+          <button
+            type="button"
+            onClick={navigateToHome}
+            className="flex items-center gap-3 bg-transparent border-0 cursor-pointer p-0 text-left focus:outline-none group"
+            aria-label="Kembali ke Beranda"
+          >
+            <div className="w-10 h-10 rounded-xl bg-[#0e0a20] border border-cyan-500/40 flex items-center justify-center overflow-hidden p-1.5 shadow-[0_0_18px_rgba(34,211,238,0.3)] group-hover:border-cyan-400 group-hover:scale-105 transition-all">
               <img
                 src="https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/san-academy2.png"
                 alt="SAN Academy Logo"
@@ -244,22 +258,29 @@ export const LearningPath: React.FC = () => {
             <span className="text-xl font-bold tracking-widest font-serif animate-text-shimmer drop-shadow-[0_0_12px_rgba(34,211,238,0.35)] whitespace-nowrap">
               SAN Academy
             </span>
-          </div>
+          </button>
 
-          {/* Navigasi Tengah */}
+          {/* Navigasi Navbar */}
           <nav className="hidden md:flex items-center gap-8 text-xs sm:text-sm font-medium text-slate-300">
-            <span className="text-cyan-300 font-semibold cursor-default">
-              Beranda
-            </span>
+            {/* Tombol Beranda: Auto ke http://localhost:5173/ */}
             <button
+              type="button"
+              onClick={navigateToHome}
+              className="text-cyan-300 hover:text-cyan-100 font-semibold transition-colors duration-200 bg-transparent border-0 cursor-pointer p-0 focus:outline-none"
+            >
+              Beranda
+            </button>
+            <button
+              type="button"
               onClick={openBootcampTab}
-              className="hover:text-cyan-300 transition-colors duration-200 bg-transparent border-0 cursor-pointer text-slate-300 text-xs sm:text-sm font-medium p-0"
+              className="hover:text-cyan-300 transition-colors duration-200 bg-transparent border-0 cursor-pointer text-slate-300 text-xs sm:text-sm font-medium p-0 focus:outline-none"
             >
               Bootcamp
             </button>
             <button
+              type="button"
               onClick={openKampusTab}
-              className="hover:text-cyan-300 transition-colors duration-200 bg-transparent border-0 cursor-pointer text-slate-300 text-xs sm:text-sm font-medium p-0"
+              className="hover:text-cyan-300 transition-colors duration-200 bg-transparent border-0 cursor-pointer text-slate-300 text-xs sm:text-sm font-medium p-0 focus:outline-none"
             >
               Kuliah & Kampus
             </button>
@@ -324,6 +345,7 @@ export const LearningPath: React.FC = () => {
                 <div className="px-5 pb-5">
                   {prog.isKampus ? (
                     <button
+                      type="button"
                       onClick={openKampusTab}
                       className="inline-flex items-center text-xs font-semibold text-cyan-300 hover:text-cyan-100 transition-colors gap-1.5 group-hover:translate-x-1 duration-300 bg-transparent border-0 p-0 cursor-pointer"
                     >
@@ -331,6 +353,7 @@ export const LearningPath: React.FC = () => {
                     </button>
                   ) : prog.isBootcamp ? (
                     <button
+                      type="button"
                       onClick={openBootcampTab}
                       className="inline-flex items-center text-xs font-semibold text-cyan-300 hover:text-cyan-100 transition-colors gap-1.5 group-hover:translate-x-1 duration-300 bg-transparent border-0 p-0 cursor-pointer"
                     >
@@ -397,7 +420,7 @@ export const LearningPath: React.FC = () => {
         </section>
       </main>
 
-      {/* Footer dengan Aksen Neon Menyala */}
+      {/* Footer */}
       <footer className="w-full border-t border-cyan-900/40 py-8 px-4 sm:px-8 text-xs bg-[#06020f]/95 backdrop-blur-md relative">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent pointer-events-none" />
 
@@ -414,12 +437,14 @@ export const LearningPath: React.FC = () => {
 
           <nav className="flex items-center gap-6 sm:gap-8 text-xs font-medium">
             <button
+              type="button"
               onClick={openKampusTab}
               className="text-slate-400 hover:text-cyan-300 transition-colors duration-200 bg-transparent border-0 cursor-pointer p-0"
             >
               Kuliah & Kampus
             </button>
             <button
+              type="button"
               onClick={openBootcampTab}
               className="text-slate-400 hover:text-cyan-300 transition-colors duration-200 bg-transparent border-0 cursor-pointer p-0"
             >
