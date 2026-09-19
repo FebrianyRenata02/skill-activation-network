@@ -215,7 +215,7 @@ export const University: React.FC = () => {
             <div className="w-10 h-10 rounded-xl bg-[#0e0a20] border border-cyan-500/40 flex items-center justify-center overflow-hidden p-1 shadow-[0_0_15px_rgba(34,211,238,0.2)] group-hover:border-cyan-400 transition-colors">
               <img
                 src="./SAN%20University.png"
-                alt="Logo SAN University"
+                alt="Logo SAN-University"
                 className="w-full h-full object-contain rounded-lg"
                 onError={(e) => {
                   const target = e.currentTarget;
