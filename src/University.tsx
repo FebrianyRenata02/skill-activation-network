@@ -28,9 +28,9 @@ const PRODI_DATA: ProdiItem[] = [
   {
     id: 3,
     degree: "DIPLOMA (D3)",
-    title: "Teknologi Multimedia",
+    title: "Bisnis Management",
     description:
-      "Pendidikan vokasi yang mendalam di bidang desain interaktif, animasi digital, dan produksi media kreatif.",
+      "Pendidikan vokasi yang berfokus pada penguasaan operasional bisnis, strategi pemasaran, pengelolaan keuangan, serta kewirausahaan.",
     link: "index.html#/kampus",
   },
 ];
