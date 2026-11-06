@@ -625,7 +625,7 @@ export const App: React.FC = () => {
 
               <div className="relative w-full h-full rounded-full aspect-square bg-[#0d061f] flex items-center justify-center overflow-hidden shadow-2xl border-0 outline-none ring-0">
                 <img
-                  src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=500&auto=format&fit=crop&q=80"
+                  src="https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/SAN_Logo.png"
                   alt="Fasilitas Background"
                   width="420"
                   height="420"
