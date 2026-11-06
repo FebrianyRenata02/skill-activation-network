@@ -636,8 +636,8 @@ export const App: React.FC = () => {
 
                 <div className="relative z-10 w-[92%] h-[92%] rounded-full aspect-square bg-transparent flex items-center justify-center overflow-hidden border-0 outline-none ring-0 shadow-none">
                   <img
-                    // src="https://raw.githubusercontent.com/FebrianyRenata02/san-academy-bootcamp/refs/heads/main/src/assets/Untitled%20(33).png"
-                    /* alt="SAN Academy Bootcamp Logo"
+                        src="https://raw.githubusercontent.com/FebrianyRenata02/skill-activation-network/refs/heads/main/src/assets/SAN_Logo.png"
+                    alt="SAN Academy Bootcamp Logo"
                     width="380"
                     height="380"
                     className="w-full h-full object-cover rounded-full aspect-square border-0 outline-none ring-0 shadow-none"
@@ -646,7 +646,7 @@ export const App: React.FC = () => {
                       outline: "none",
                       boxShadow: "none",
                     }}
-                    fetchPriority="high"*/
+                    fetchPriority="high"
                   />
                 </div>
               </div>
